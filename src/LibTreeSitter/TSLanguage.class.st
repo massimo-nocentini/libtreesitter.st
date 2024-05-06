@@ -53,13 +53,13 @@ TSLanguage >> matches: anObject [
 	matches := anObject
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 TSLanguage >> orderedPatterns [
 
 	^ matches keys
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 TSLanguage >> populate: chunks offset: i text: clean_text counter: counter [
 
 	| sorted |

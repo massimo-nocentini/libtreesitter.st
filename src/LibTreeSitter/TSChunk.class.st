@@ -12,27 +12,34 @@ Class {
 { #category : 'evaluating' }
 TSChunk >> asRSPangoShapeUsingFont: aFont [
 
-	| tsLanguage chunks code |
-	tsLanguage := TSLanguage perform: language asSymbol.
+	| tsLanguage chunks code selector shape |
+	selector := language asSymbol.
+
 	chunks := OrderedCollection new.
 
 	code := sourceCode replaceAllTabsWithThreeSpaces
 		        fixEmptyLinesForPango.
 
-	self withMatchesOn: code do: [ :matches :codeLines |
-		tsLanguage matches: matches.
+	shape := RSPangoText new
+		         font: aFont;
+		         text: code;
+		         yourself.
 
-		tsLanguage
-			populate: chunks
-			offset: 1
-			text: code
-			counter: 1 ].
+	(TSLanguage respondsTo: selector) ifTrue: [
+		tsLanguage := TSLanguage perform: selector.
 
-	^ RSPangoText new
-		  font: aFont;
-		  attributesChunks: (chunks collect: #last);
-		  text: code;
-		  asCompositeShape
+		self withMatchesOn: code do: [ :matches :codeLines |
+			tsLanguage matches: matches.
+
+			tsLanguage
+				populate: chunks
+				offset: 1
+				text: code
+				counter: 1 ].
+
+		shape attributesChunks: (chunks collect: #last) ].
+
+	^ shape asCompositeShape
 ]
 
 { #category : 'visiting' }
