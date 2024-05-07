@@ -12,34 +12,44 @@ Class {
 { #category : 'evaluating' }
 TSChunk >> asRSPangoShapeUsingFont: aFont [
 
-	| tsLanguage chunks code selector shape |
+	| tsLanguage code selector shape |
 	selector := language asSymbol.
-
-	chunks := OrderedCollection new.
 
 	code := sourceCode replaceAllTabsWithThreeSpaces
 		        fixEmptyLinesForPango.
 
-	shape := RSPangoText new
-		         font: aFont;
-		         text: code;
-		         yourself.
+	^ selector = MicAbstractCodeBlock defaultLanguage
+		  ifTrue: [
+			  | presenter |
+			  presenter := SpCodePresenter new
+				               beForScripting;
+				               text: code;
+				               yourself.
 
-	(TSLanguage respondsTo: selector) ifTrue: [
-		tsLanguage := TSLanguage perform: selector.
+			  presenter textWithStyle asRSPangoShapeUsingFont:
+				  LogicalFont pangoMonospace ]
+		  ifFalse: [
+			  shape := RSPangoText new
+				           font: aFont;
+				           text: code;
+				           yourself.
 
-		self withMatchesOn: code do: [ :matches :codeLines |
-			tsLanguage matches: matches.
+			  (TSLanguage respondsTo: selector) ifTrue: [
+				  | chunks |
+				  tsLanguage := TSLanguage perform: selector.
+				  chunks := OrderedCollection new.
+				  self withMatchesOn: code do: [ :matches :codeLines |
+					  tsLanguage matches: matches.
 
-			tsLanguage
-				populate: chunks
-				offset: 1
-				text: code
-				counter: 1 ].
+					  tsLanguage
+						  populate: chunks
+						  offset: 1
+						  text: code
+						  counter: 1 ].
 
-		shape attributesChunks: (chunks collect: #last) ].
+				  shape attributesChunks: (chunks collect: #last) ].
 
-	^ shape asCompositeShape
+			  shape asCompositeShape ]
 ]
 
 { #category : 'visiting' }
