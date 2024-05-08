@@ -15,8 +15,7 @@ TSChunk >> asRSPangoShapeUsingFont: aFont [
 	| tsLanguage code selector shape |
 	selector := language asSymbol.
 
-	code := sourceCode replaceAllTabsWithThreeSpaces
-		        fixEmptyLinesForPango.
+	code := sourceCode replaceAllTabsWithThreeSpaces.
 
 	^ selector = MicAbstractCodeBlock defaultLanguage
 		  ifTrue: [
