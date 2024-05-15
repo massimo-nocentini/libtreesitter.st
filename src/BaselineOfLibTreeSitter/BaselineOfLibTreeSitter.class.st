@@ -14,5 +14,7 @@ BaselineOfLibTreeSitter >> baseline: spec [
 			baseline: 'LibLuast'
 			with: [ spec repository: 'github://massimo-nocentini/liblua.st' ].
 
-		spec package: 'LibTreeSitter' ]
+		spec
+			package: 'LibTreeSitter';
+			package: 'LibTreeSitter-Tests' ]
 ]
