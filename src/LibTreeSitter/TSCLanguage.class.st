@@ -8,6 +8,17 @@ Class {
 	#package : 'LibTreeSitter'
 }
 
+{ #category : 'query' }
+TSCLanguage >> highlightsQueryString [
+
+	^ (self highlightsQueryStringForLanguageNamed: 'c') , '
+	
+(function_declarator
+  declarator: (identifier) @function.decl)
+
+'
+]
+
 { #category : 'initialization' }
 TSCLanguage >> initialize [
 
@@ -57,7 +68,7 @@ TSCLanguage >> newLanguageHandle [
 	self primitiveFail
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'pattern' }
 TSCLanguage >> orderedPatterns [
 
 	^ { 'number'. 'string'. 'function.decl'. 'function'. 'variable'.

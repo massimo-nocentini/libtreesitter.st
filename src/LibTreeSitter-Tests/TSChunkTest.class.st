@@ -11,5 +11,17 @@ Class {
 { #category : 'tests' }
 TSChunkTest >> testAllocatingLanguageHandleForC [
 
-	self deny: TSLanguage c newLanguageHandle isNull
+	| called |
+	called := false.
+	TSLanguage c withLanguageHandleDo: [ :handle |
+		self deny: handle isNull.
+		called := true ].
+
+	self assert: called
+]
+
+{ #category : 'tests' }
+TSChunkTest >> testHighlightsQueryForC [
+
+	self assert: TSLanguage c highlightsQueryString size > 1000
 ]

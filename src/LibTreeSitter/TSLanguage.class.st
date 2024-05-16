@@ -3,7 +3,9 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'highlights',
-		'matches'
+		'matches',
+		'session',
+		'handle'
 	],
 	#category : 'LibTreeSitter',
 	#package : 'LibTreeSitter'
@@ -37,6 +39,32 @@ TSLanguage class >> psql [
 TSLanguage >> at: pattern [
 
 	^ highlights at: pattern ifAbsent: [ #(  ) ]
+]
+
+{ #category : 'as yet unclassified' }
+TSLanguage >> freeLanguageHandle: anExternalAddress [
+
+	<primitive: 'primitive_ts_language_delete' module: 'TreeSitterPlugin'>
+	self primitiveFail
+]
+
+{ #category : 'query' }
+TSLanguage >> highlightsQueryString [
+
+	self subclassResponsibility
+]
+
+{ #category : 'query' }
+TSLanguage >> highlightsQueryStringForLanguageNamed: languageName [
+
+	| sharePath |
+	sharePath := Smalltalk vm directory asFileReference parent / 'share'
+	             / 'tree-sitter' / 'query' / languageName
+	             / 'highlights.scm'.
+
+	^ sharePath exists
+		  ifTrue: [ sharePath contents ]
+		  ifFalse: [ String empty ]
 ]
 
 { #category : 'initialization' }
@@ -100,4 +128,14 @@ TSLanguage >> populate: chunks offset: i text: clean_text counter: counter [
 				j.
 				tuple first. "from"
 				('{1} {2} {3}' format: tuple) } ]
+]
+
+{ #category : 'as yet unclassified' }
+TSLanguage >> withLanguageHandleDo: aBlock [
+
+	session == Smalltalk session ifFalse: [
+		handle := self newLanguageHandle.
+		session := Smalltalk session ].
+
+	aBlock value: handle
 ]
