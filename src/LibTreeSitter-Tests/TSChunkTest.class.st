@@ -25,3 +25,17 @@ TSChunkTest >> testHighlightsQueryForC [
 
 	self assert: TSLanguage c highlightsQueryString size > 1000
 ]
+
+{ #category : 'tests' }
+TSChunkTest >> testInstantiatingParser [
+
+	self deny: TSParser new getHandle isNull
+]
+
+{ #category : 'tests' }
+TSChunkTest >> testSettingLanguageCToParser [
+
+	self assert: (TSParser new
+			 language: TSLanguage c;
+			 hasLanguageAssigned)
+]

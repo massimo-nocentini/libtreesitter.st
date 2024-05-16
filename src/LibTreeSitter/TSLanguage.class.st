@@ -1,6 +1,8 @@
 Class {
 	#name : 'TSLanguage',
 	#superclass : 'Object',
+	#traits : 'TExternalAddressHolder',
+	#classTraits : 'TExternalAddressHolder classTrait',
 	#instVars : [
 		'highlights',
 		'matches',
@@ -15,6 +17,20 @@ Class {
 TSLanguage class >> c [
 
 	^ TSCLanguage new
+]
+
+{ #category : 'finalization' }
+TSLanguage class >> deallocateHandle: anExternalAddress [
+	"nothing to do here"
+
+	
+]
+
+{ #category : 'finalization' }
+TSLanguage class >> freeLanguageHandle: anExternalAddress [
+
+	<primitive: 'primitive_ts_language_delete' module: 'TreeSitterPlugin'>
+	
 ]
 
 { #category : 'private - accessing' }
@@ -35,17 +51,16 @@ TSLanguage class >> psql [
 	^ TSPSQLLanguage new
 ]
 
+{ #category : 'as yet unclassified' }
+TSLanguage >> allocate [
+
+	^ self newLanguageHandle
+]
+
 { #category : 'accessing' }
 TSLanguage >> at: pattern [
 
 	^ highlights at: pattern ifAbsent: [ #(  ) ]
-]
-
-{ #category : 'as yet unclassified' }
-TSLanguage >> freeLanguageHandle: anExternalAddress [
-
-	<primitive: 'primitive_ts_language_delete' module: 'TreeSitterPlugin'>
-	self primitiveFail
 ]
 
 { #category : 'query' }
@@ -72,6 +87,7 @@ TSLanguage >> initialize [
 
 	super initialize.
 
+	handle := self allocate.
 	highlights := Dictionary new
 ]
 
