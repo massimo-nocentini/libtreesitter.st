@@ -63,6 +63,16 @@ TSLanguage >> at: pattern [
 	^ highlights at: pattern ifAbsent: [ #(  ) ]
 ]
 
+{ #category : 'as yet unclassified' }
+TSLanguage >> getHandle [
+
+	session == Smalltalk session ifFalse: [
+		handle := self allocate.
+		session := Smalltalk session ].
+
+	^ handle
+]
+
 { #category : 'query' }
 TSLanguage >> highlightsQueryString [
 
@@ -144,14 +154,4 @@ TSLanguage >> populate: chunks offset: i text: clean_text counter: counter [
 				j.
 				tuple first. "from"
 				('{1} {2} {3}' format: tuple) } ]
-]
-
-{ #category : 'as yet unclassified' }
-TSLanguage >> withLanguageHandleDo: aBlock [
-
-	session == Smalltalk session ifFalse: [
-		handle := self newLanguageHandle.
-		session := Smalltalk session ].
-
-	aBlock value: handle
 ]

@@ -11,13 +11,7 @@ Class {
 { #category : 'tests' }
 TSChunkTest >> testAllocatingLanguageHandleForC [
 
-	| called |
-	called := false.
-	TSLanguage c withLanguageHandleDo: [ :handle |
-		self deny: handle isNull.
-		called := true ].
-
-	self assert: called
+	self deny: TSLanguage c getHandle isNull
 ]
 
 { #category : 'tests' }
