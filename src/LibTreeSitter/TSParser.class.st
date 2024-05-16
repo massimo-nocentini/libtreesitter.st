@@ -49,9 +49,25 @@ TSParser >> language: lang [
 ]
 
 { #category : 'as yet unclassified' }
+TSParser >> onParserHandle: pHandle parseString: src [
+
+	<primitive: 'primitive_ts_parser_parse_string' module:
+	'TreeSitterPlugin'>
+	^ ExternalAddress null
+]
+
+{ #category : 'as yet unclassified' }
 TSParser >> onParserHandle: pHandle setLanguageHandle: lHandle [
 
 	<primitive: 'primitive_ts_parser_set_language' module:
 	'TreeSitterPlugin'>
 	^ false
+]
+
+{ #category : 'as yet unclassified' }
+TSParser >> treeOfString: src [
+
+	^ TSTree new
+		  handle: (self onParserHandle: self getHandle parseString: src);
+		  yourself
 ]

@@ -27,6 +27,18 @@ TSChunkTest >> testInstantiatingParser [
 ]
 
 { #category : 'tests' }
+TSChunkTest >> testParsingCSimpleChunk [
+
+	| tree |
+	tree := TSParser new
+		        language: TSLanguage c;
+		        treeOfString:
+			        'int main (int argc, char **argv) { printf("Hello world!"); }'.
+
+	self deny: tree getHandle isNull
+]
+
+{ #category : 'tests' }
 TSChunkTest >> testSettingLanguageCToParser [
 
 	self assert: (TSParser new
