@@ -11,5 +11,5 @@ Class {
 { #category : 'tests' }
 TSChunkTest >> testAllocatingLanguageHandleForC [
 
-	self deny: TSChunk new handleForLanguageC isNull
+	self deny: TSLanguage c newLanguageHandle isNull
 ]

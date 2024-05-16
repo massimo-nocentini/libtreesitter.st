@@ -53,6 +53,12 @@ TSLanguage >> matches: anObject [
 	matches := anObject
 ]
 
+{ #category : 'instance creation' }
+TSLanguage >> newLanguageHandle [
+
+	self subclassResponsibility
+]
+
 { #category : 'accessing' }
 TSLanguage >> orderedPatterns [
 

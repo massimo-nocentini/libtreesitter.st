@@ -50,6 +50,13 @@ TSCLanguage >> initialize [
 			 , (SHStyleElement withTokens: { 'true' }) color asHexString) }
 ]
 
+{ #category : 'instance creation' }
+TSCLanguage >> newLanguageHandle [
+
+	<primitive: 'primitive_tree_sitter_c' module: 'TreeSitterPlugin'>
+	self primitiveFail
+]
+
 { #category : 'as yet unclassified' }
 TSCLanguage >> orderedPatterns [
 

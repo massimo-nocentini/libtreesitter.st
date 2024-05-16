@@ -1,8 +1,6 @@
 Class {
 	#name : 'TSChunk',
 	#superclass : 'Object',
-	#traits : 'TTreeSitterPlugin',
-	#classTraits : 'TTreeSitterPlugin classTrait',
 	#instVars : [
 		'language',
 		'sourceCode'
