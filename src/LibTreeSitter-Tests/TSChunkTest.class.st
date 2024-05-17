@@ -14,11 +14,11 @@ TSChunkTest >> testASTofCSimpleChunk [
 	| node src |
 	src := 'int main (int argc, char **argv) { printf("Hello world!"); }'.
 
-	node := TSParser new
-		        language: TSLanguage c;
-		        astOfString: src.
+	node := TSParser c astOfString: src.
 
-	self assert: node content equals: src.
+	self
+		assert: node isNotNil;
+		assert: node content equals: src.
 
 	self
 		assert:
@@ -48,10 +48,8 @@ TSChunkTest >> testInstantiatingParser [
 TSChunkTest >> testParsingCSimpleChunk [
 
 	| tree |
-	tree := TSParser new
-		        language: TSLanguage c;
-		        treeOfString:
-			        'int main (int argc, char **argv) { printf("Hello world!"); }'.
+	tree := TSParser c treeOfString:
+		        'int main (int argc, char **argv) { printf("Hello world!"); }'.
 
 	self deny: tree getHandle isNull
 ]
@@ -59,7 +57,7 @@ TSChunkTest >> testParsingCSimpleChunk [
 { #category : 'tests' }
 TSChunkTest >> testSettingLanguageCToParser [
 
-	self assert: (TSParser new
-			 language: TSLanguage c;
-			 hasLanguageAssigned)
+	self
+		assert: TSParser c hasLanguageAssigned;
+		deny: TSParser new hasLanguageAssigned
 ]

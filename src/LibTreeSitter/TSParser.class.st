@@ -11,6 +11,14 @@ Class {
 	#package : 'LibTreeSitter'
 }
 
+{ #category : 'language' }
+TSParser class >> c [
+
+	^ self new
+		  language: TSLanguage c;
+		  yourself
+]
+
 { #category : 'finalization' }
 TSParser class >> deallocateHandle: anExternalAddress [
 
@@ -28,9 +36,7 @@ TSParser >> allocate [
 { #category : 'as yet unclassified' }
 TSParser >> astOfString: src [
 
-	| tree |
-	tree := self treeOfString: src.
-	^ tree astOfString: src
+	^ (self treeOfString: src) astOfString: src
 ]
 
 { #category : 'accessing' }

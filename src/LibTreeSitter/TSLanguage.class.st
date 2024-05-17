@@ -13,7 +13,7 @@ Class {
 	#package : 'LibTreeSitter'
 }
 
-{ #category : 'private - accessing' }
+{ #category : 'languages' }
 TSLanguage class >> c [
 
 	^ TSCLanguage new
@@ -33,19 +33,19 @@ TSLanguage class >> freeLanguageHandle: anExternalAddress [
 	
 ]
 
-{ #category : 'private - accessing' }
+{ #category : 'languages' }
 TSLanguage class >> json [
 
 	^ TSJsonLanguage new
 ]
 
-{ #category : 'private - accessing' }
+{ #category : 'languages' }
 TSLanguage class >> lua [
 
 	^ TSLuaLanguage new
 ]
 
-{ #category : 'private - accessing' }
+{ #category : 'languages' }
 TSLanguage class >> psql [
 
 	^ TSPSQLLanguage new
