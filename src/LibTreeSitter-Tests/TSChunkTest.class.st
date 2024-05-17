@@ -33,6 +33,22 @@ TSChunkTest >> testAllocatingLanguageHandleForC [
 ]
 
 { #category : 'tests' }
+TSChunkTest >> testHighlightsOfCSimpleChunk [
+
+	| query src |
+	src := 'int main (int argc, char **argv) { printf("Hello world!"); }'.
+
+	query := TSParser c
+		         source: src
+		         query: TSLanguage c highlightsQueryString.
+
+	self
+		assert: query isNotNil;
+		assert: query errorType equals: 0;
+		deny: query getHandle isNull
+]
+
+{ #category : 'tests' }
 TSChunkTest >> testHighlightsQueryForC [
 
 	self assert: TSLanguage c highlightsQueryString size > 1000
@@ -55,9 +71,39 @@ TSChunkTest >> testParsingCSimpleChunk [
 ]
 
 { #category : 'tests' }
+TSChunkTest >> testQueryCursorAllocation [
+
+	| called |
+	called := false.
+	
+	TSQuery new withQueryCursorDo: [ :cursorHandle |
+		self deny: cursorHandle isNull.
+		called := true ].
+
+	self assert: called
+]
+
+{ #category : 'tests' }
 TSChunkTest >> testSettingLanguageCToParser [
 
 	self
 		assert: TSParser c hasLanguageAssigned;
 		deny: TSParser new hasLanguageAssigned
+]
+
+{ #category : 'tests' }
+TSChunkTest >> testSlotInTraits [
+
+	| a b |
+	a := TSDummy new
+		     value: #a;
+		     yourself.
+
+	b := TSDummy new
+		     value: #b;
+		     yourself.
+
+	self
+		assert: a value equals: #a;
+		assert: b value equals: #b
 ]

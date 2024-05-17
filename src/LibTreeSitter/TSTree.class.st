@@ -30,9 +30,22 @@ TSTree >> astOfString: src [
 		  nodeClass: TSNode
 ]
 
+{ #category : 'accessing' }
+TSTree >> onTreeHandle: tHandle query: query class: class [
+
+	<primitive: 'primitive_ts_query_new' module: 'TreeSitterPlugin'>
+	^ nil
+]
+
 { #category : 'as yet unclassified' }
 TSTree >> onTreeHandle: tHandle src: src cumulatedSizes: cumulatedSizes nodeClass: class [
 
 	<primitive: 'primitive_ts_ast' module: 'TreeSitterPlugin'>
 	^ nil
+]
+
+{ #category : 'accessing' }
+TSTree >> query: query [
+
+	^ self onTreeHandle: self getHandle query: query class: TSQuery
 ]
