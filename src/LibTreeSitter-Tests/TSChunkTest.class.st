@@ -9,6 +9,24 @@ Class {
 }
 
 { #category : 'tests' }
+TSChunkTest >> testASTofCSimpleChunk [
+
+	| node src |
+	src := 'int main (int argc, char **argv) { printf("Hello world!"); }'.
+
+	node := TSParser new
+		        language: TSLanguage c;
+		        astOfString: src.
+
+	self assert: node content equals: src.
+
+	self
+		assert:
+		(src copyFrom: node absolutePoint x to: node absolutePoint y)
+		equals: src
+]
+
+{ #category : 'tests' }
 TSChunkTest >> testAllocatingLanguageHandleForC [
 
 	self deny: TSLanguage c getHandle isNull

@@ -25,6 +25,14 @@ TSParser >> allocate [
 	^ ExternalAddress null
 ]
 
+{ #category : 'as yet unclassified' }
+TSParser >> astOfString: src [
+
+	| tree |
+	tree := self treeOfString: src.
+	^ tree astOfString: src
+]
+
 { #category : 'accessing' }
 TSParser >> hasLanguageAssigned [
 
