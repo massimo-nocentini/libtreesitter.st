@@ -107,7 +107,7 @@ TSLanguage >> initialize [
 	highlights := Dictionary new
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'query' }
 TSLanguage >> languageHandle: lHandle queryString: qString queryClass: class [
 
 	<primitive: 'primitive_ts_query_new' module: 'TreeSitterPlugin'>

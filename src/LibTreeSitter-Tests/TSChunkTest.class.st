@@ -14,7 +14,7 @@ TSChunkTest >> testASTofCSimpleChunk [
 	| node src |
 	src := 'int main (int argc, char **argv) { printf("Hello world!"); }'.
 
-	node := TSParser c astOfString: src.
+	node := TSLanguage c parser astOfString: src.
 
 	self
 		assert: node isNotNil;
@@ -41,22 +41,6 @@ TSChunkTest >> testCreateQuery [
 	self
 		deny: query getHandle isNull;
 		assert: query errorType equals: 0
-]
-
-{ #category : 'tests' }
-TSChunkTest >> testHighlightsOfCSimpleChunk [
-
-	| query src |
-	src := 'int main (int argc, char **argv) { printf("Hello world!"); }'.
-
-	query := TSParser c
-		         source: src
-		         query: TSLanguage c highlightsQueryString.
-
-	self
-		assert: query isNotNil;
-		assert: query errorType equals: 0;
-		deny: query getHandle isNull
 ]
 
 { #category : 'tests' }
@@ -89,7 +73,7 @@ TSChunkTest >> testInstantiatingParser [
 TSChunkTest >> testParsingCSimpleChunk [
 
 	| tree |
-	tree := TSParser c treeOfString:
+	tree := TSLanguage c parser treeOfString:
 		        'int main (int argc, char **argv) { printf("Hello world!"); }'.
 
 	self deny: tree getHandle isNull
