@@ -33,6 +33,17 @@ TSChunkTest >> testAllocatingLanguageHandleForC [
 ]
 
 { #category : 'tests' }
+TSChunkTest >> testCreateQuery [
+
+	| query |
+	query := TSLanguage c highlightsQuery.
+
+	self
+		deny: query getHandle isNull;
+		assert: query errorType equals: 0
+]
+
+{ #category : 'tests' }
 TSChunkTest >> testHighlightsOfCSimpleChunk [
 
 	| query src |
@@ -55,6 +66,20 @@ TSChunkTest >> testHighlightsQueryForC [
 ]
 
 { #category : 'tests' }
+TSChunkTest >> testHighlightsQueryMatches [
+
+	| matches lang tree |
+	lang := TSLanguage c.
+
+	tree := lang parser treeOfString:
+		        'int main (int argc, char **argv) { printf("Hello world!"); }'.
+
+	matches := lang highlightsQuery matchesOnTree: tree.
+
+	self halt
+]
+
+{ #category : 'tests' }
 TSChunkTest >> testInstantiatingParser [
 
 	self deny: TSParser new getHandle isNull
@@ -68,19 +93,6 @@ TSChunkTest >> testParsingCSimpleChunk [
 		        'int main (int argc, char **argv) { printf("Hello world!"); }'.
 
 	self deny: tree getHandle isNull
-]
-
-{ #category : 'tests' }
-TSChunkTest >> testQueryCursorAllocation [
-
-	| called |
-	called := false.
-	
-	TSQuery new withQueryCursorDo: [ :cursorHandle |
-		self deny: cursorHandle isNull.
-		called := true ].
-
-	self assert: called
 ]
 
 { #category : 'tests' }

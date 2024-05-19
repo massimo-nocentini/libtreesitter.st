@@ -5,7 +5,9 @@ Class {
 	#classTraits : 'TExternalAddressHolder classTrait',
 	#instVars : [
 		'errorOffset',
-		'errorType'
+		'errorType',
+		'language',
+		'queryString'
 	],
 	#category : 'LibTreeSitter',
 	#package : 'LibTreeSitter'
@@ -15,22 +17,6 @@ Class {
 TSQuery class >> deallocateHandle: anExternalAddress [
 
 	<primitive: 'primitive_ts_query_delete' module: 'TreeSitterPlugin'>
-	
-]
-
-{ #category : 'as yet unclassified' }
-TSQuery >> allocateQueryCursor [
-
-	<primitive: 'primitive_ts_query_cursor_new' module:
-	'TreeSitterPlugin'>
-	^ ExternalAddress null
-]
-
-{ #category : 'as yet unclassified' }
-TSQuery >> deallocateQueryCursor: anExternalAddress [
-
-	<primitive: 'primitive_ts_query_cursor_delete' module:
-	'TreeSitterPlugin'>
 	
 ]
 
@@ -46,12 +32,18 @@ TSQuery >> errorType [
 	^ errorType
 ]
 
+{ #category : 'testing' }
+TSQuery >> matchesOnTree: tree [
+
+	^ self
+		  matchesQueryHandle: self getHandle
+		  treeHandle: tree getHandle
+		  class: TSQueryCapture
+]
+
 { #category : 'as yet unclassified' }
-TSQuery >> withQueryCursorDo: block [
+TSQuery >> matchesQueryHandle: qHandle treeHandle: tHandle class: class [
 
-	| cursorHandle |
-	cursorHandle := self allocateQueryCursor.
-
-	[ block value: cursorHandle ] ensure: [
-		self deallocateQueryCursor: cursorHandle ]
+	<primitive: 'primitive_ts_query_matches' module: 'TreeSitterPlugin'>
+	^ #(  )
 ]

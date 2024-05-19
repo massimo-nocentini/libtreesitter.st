@@ -74,6 +74,12 @@ TSLanguage >> getHandle [
 ]
 
 { #category : 'query' }
+TSLanguage >> highlightsQuery [
+
+	^ self query: self highlightsQueryString
+]
+
+{ #category : 'query' }
 TSLanguage >> highlightsQueryString [
 
 	self subclassResponsibility
@@ -101,6 +107,13 @@ TSLanguage >> initialize [
 	highlights := Dictionary new
 ]
 
+{ #category : 'as yet unclassified' }
+TSLanguage >> languageHandle: lHandle queryString: qString queryClass: class [
+
+	<primitive: 'primitive_ts_query_new' module: 'TreeSitterPlugin'>
+	^ nil
+]
+
 { #category : 'accessing' }
 TSLanguage >> matches: anObject [
 
@@ -117,6 +130,14 @@ TSLanguage >> newLanguageHandle [
 TSLanguage >> orderedPatterns [
 
 	^ matches keys
+]
+
+{ #category : 'accessing' }
+TSLanguage >> parser [
+
+	^ TSParser new
+		  language: self;
+		  yourself
 ]
 
 { #category : 'accessing' }
@@ -154,4 +175,13 @@ TSLanguage >> populate: chunks offset: i text: clean_text counter: counter [
 				j.
 				tuple first. "from"
 				('{1} {2} {3}' format: tuple) } ]
+]
+
+{ #category : 'query' }
+TSLanguage >> query: qString [
+
+	^ self
+		  languageHandle: self getHandle
+		  queryString: qString
+		  queryClass: TSQuery
 ]
