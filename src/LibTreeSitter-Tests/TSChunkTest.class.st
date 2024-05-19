@@ -76,7 +76,7 @@ TSChunkTest >> testHighlightsQueryMatches [
 
 	matches := lang highlightsQuery matchesOnTree: tree.
 
-	self halt
+	self assert: matches isNotEmpty
 ]
 
 { #category : 'tests' }
