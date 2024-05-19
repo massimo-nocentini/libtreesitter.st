@@ -68,15 +68,15 @@ TSChunkTest >> testHighlightsQueryForC [
 { #category : 'tests' }
 TSChunkTest >> testHighlightsQueryMatches [
 
-	| matches lang tree |
+	| captures lang tree |
 	lang := TSLanguage c.
 
 	tree := lang parser treeOfString:
 		        'int main (int argc, char **argv) { printf("Hello world!"); }'.
 
-	matches := lang highlightsQuery matchesOnTree: tree.
+	captures := lang highlightsQuery matchesOnTree: tree.
 
-	self assert: matches isNotEmpty
+	self assert: captures isNotEmpty
 ]
 
 { #category : 'tests' }
