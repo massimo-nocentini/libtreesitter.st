@@ -59,7 +59,7 @@ TSChunkTest >> testHighlightsQueryMatches [
 		        'int main (int argc, char **argv) { printf("Hello world!"); }'.
 
 	captures := lang highlightsQuery matchesOnTree: tree.
-
+captures inspect.
 	self assert: captures isNotEmpty
 ]
 

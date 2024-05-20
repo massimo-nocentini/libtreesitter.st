@@ -34,43 +34,49 @@ TSChunk >> asRSPangoShapeUsingFont: aFont [
 				           yourself.
 
 			  (TSLanguage respondsTo: selector) ifTrue: [
-				  | chunks |
+				  | chunks matches tree sorted cumulatedSizes |
+				  cumulatedSizes := code cumulatedLineSizes.
+
 				  tsLanguage := TSLanguage perform: selector.
+				  tree := tsLanguage parser treeOfString: code.
+				  matches := tsLanguage highlightsQuery
+					             matchesGroupByCategoryOnTree: tree.
+
 				  chunks := OrderedCollection new.
-				  self withMatchesOn: code do: [ :matches :codeLines |
-					  tsLanguage matches: matches.
 
-					  tsLanguage
-						  populate: chunks
-						  offset: 1
-						  text: code
-						  counter: 1 ].
+				  sorted := SortedCollection sortUsing: [ :a :b |
+					            a first = b first
+						            ifTrue: [ a fourth > b fourth ]
+						            ifFalse: [ a first < b first ] ].
 
-				  shape attributesChunks: (chunks collect: #last) ].
+				  tsLanguage orderedPatterns withIndexDo: [ :pattern :priority |
+					  matches at: pattern ifPresent: [ :captures |
+						  | specs |
+						  specs := tsLanguage at: pattern.
+						  captures do: [ :capture |
+							  | abs from to |
+							  abs := capture interval: cumulatedSizes.
+
+							  from := abs first - 1.
+							  to := abs last.
+
+							  "capture at: 'content' put: (clean_text copyFrom: from to: to)."
+
+							  specs do: [ :spec |
+								  sorted add: {
+										  from.
+										  to.
+										  spec.
+										  priority } ] ] ] ].
+
+				  sorted withIndexDo: [ :tuple :j |
+					  chunks add: ('{1} {2} {3}' format: tuple) ].
+
+				  shape attributesChunks: chunks ].
+
+
 
 			  shape asCompositeShape ]
-]
-
-{ #category : 'visiting' }
-TSChunk >> escapeTextInGMarkup: code [
-
-	^ self withNewLuaStateDo: [ :L :ll |
-		  | retcode |
-		  retcode := ll
-			             luaL_requiref: L name: 'cairo';
-			             on: L push: #cairo;
-			             lua: L
-			             get: -1
-			             field: 'g_markup_escape_text'
-			             remove: true;
-			             on: L push: code;
-			             lua_pcall: L nargs: 1 nresults: 1.
-
-		  self
-			  assert: retcode == ll LUA_OK
-			  description: 'failed to escape text.'.
-
-		  ll on: L at: -1 ]
 ]
 
 { #category : 'accessing' }
@@ -83,39 +89,4 @@ TSChunk >> language: anObject [
 TSChunk >> sourceCode: anObject [
 
 	sourceCode := anObject
-]
-
-{ #category : 'visiting' }
-TSChunk >> withMatchesOn: code do: recv [
-
-	^ self withNewLuaStateDo: [ :L :ll |
-		  | retcode matches srcLines |
-		  retcode := ll
-			             luaL_requiref: L name: 'tree-sitter';
-			             on: L push: #'tree-sitter';
-			             lua: L
-			             get: -1
-			             field: 'highlights_matches'
-			             remove: true;
-			             on: L push: language;
-			             on: L push: code;
-			             lua_pcall: L nargs: 2 nresults: 2.
-
-		  self
-			  assert: retcode == ll LUA_OK
-			  description: 'failed to compute highlights.'.
-
-		  matches := ll on: L at: -2.
-		  srcLines := ll on: L at: -1.
-
-		  matches ifNotNil: [ recv value: matches value: srcLines ] ]
-]
-
-{ #category : 'visiting' }
-TSChunk >> withNewLuaStateDo: aCodeBlock [
-
-	| ll |
-	ll := LibLua uniqueInstance implementationPrimitive.
-
-	^ ll withOpenedLibsStateDo: [ :L | aCodeBlock value: L value: ll ]
 ]

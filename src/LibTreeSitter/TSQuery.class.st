@@ -33,6 +33,21 @@ TSQuery >> errorType [
 ]
 
 { #category : 'testing' }
+TSQuery >> matchesGroupByCategoryOnTree: tree [
+
+	| captures |
+	captures := Dictionary new.
+
+	(self matchesOnTree: tree) do: [ :each |
+		captures
+			at: each name
+			ifPresent: [ :collection | collection add: each ]
+			ifAbsentPut: [ OrderedCollection with: each ] ].
+
+	^ captures
+]
+
+{ #category : 'testing' }
 TSQuery >> matchesOnTree: tree [
 
 	^ self
