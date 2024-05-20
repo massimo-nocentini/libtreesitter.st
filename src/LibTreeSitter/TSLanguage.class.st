@@ -32,6 +32,12 @@ TSLanguage class >> freeLanguageHandle: anExternalAddress [
 ]
 
 { #category : 'languages' }
+TSLanguage class >> javascript [
+
+	^ TSJavascriptLanguage new
+]
+
+{ #category : 'languages' }
 TSLanguage class >> json [
 
 	^ TSJsonLanguage new

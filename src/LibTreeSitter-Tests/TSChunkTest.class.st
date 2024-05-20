@@ -48,7 +48,8 @@ TSChunkTest >> testHighlightsQueryForC [
 
 	self
 		assert: TSLanguage c highlightsQueryString size > 1000;
-		assert: TSLanguage json highlightsQueryString size > 250
+		assert: TSLanguage json highlightsQueryString size > 250;
+		assert: TSLanguage javascript highlightsQueryString size > 250
 ]
 
 { #category : 'tests' }
@@ -59,6 +60,33 @@ TSChunkTest >> testHighlightsQueryMatches [
 
 	tree := lang parser treeOfString:
 		        'int main (int argc, char **argv) { printf("Hello world!"); }'.
+
+	captures := lang highlightsQuery matchesOnTree: tree.
+
+	self assert: captures isNotEmpty
+]
+
+{ #category : 'tests' }
+TSChunkTest >> testHighlightsQueryMatchesJavascript [
+
+	| captures lang tree |
+	lang := TSLanguage javascript.
+
+	tree := lang parser treeOfString: '
+var canvas = new fabric.Canvas(''c'');
+
+// create a rectangle with angle=45
+var rect = new fabric.Rect({
+  left: 100,
+  top: 100,
+  fill: ''red'',
+  width: 20,
+  height: 20,
+  angle: 45
+});
+
+canvas.add(rect);
+'.
 
 	captures := lang highlightsQuery matchesOnTree: tree.
 
