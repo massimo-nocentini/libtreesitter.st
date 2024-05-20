@@ -5,9 +5,7 @@ Class {
 	#classTraits : 'TExternalAddressHolder classTrait',
 	#instVars : [
 		'highlights',
-		'matches',
-		'session',
-		'handle'
+		'session'
 	],
 	#category : 'LibTreeSitter',
 	#package : 'LibTreeSitter'

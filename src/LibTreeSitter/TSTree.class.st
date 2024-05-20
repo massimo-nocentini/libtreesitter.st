@@ -17,16 +17,10 @@ TSTree class >> deallocateHandle: anExternalAddress [
 { #category : 'as yet unclassified' }
 TSTree >> astOfString: src [
 
-	| cumulatedSizes |
-	cumulatedSizes := src lines
-		                  scan: [ :cumulatedSize :line |
-		                  cumulatedSize + 1 + line size ]
-		                  init: 0.
-
 	^ self
 		  onTreeHandle: self getHandle
 		  src: src
-		  cumulatedSizes: cumulatedSizes asArray
+		  cumulatedSizes: src cumulatedLineSizes
 		  nodeClass: TSNode
 ]
 
