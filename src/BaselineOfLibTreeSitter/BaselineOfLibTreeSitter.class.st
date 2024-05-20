@@ -10,9 +10,9 @@ BaselineOfLibTreeSitter >> baseline: spec [
 
 	<baseline>
 	spec for: #common do: [
-		spec
-			baseline: 'LibLuast'
-			with: [ spec repository: 'github://massimo-nocentini/liblua.st' ].
+		spec baseline: 'VMPluginsPrimitives' with: [
+			spec repository:
+				'github://massimo-nocentini/vm-plugins-primitives.st' ].
 
 		spec
 			package: 'LibTreeSitter';

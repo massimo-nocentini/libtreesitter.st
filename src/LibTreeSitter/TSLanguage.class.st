@@ -112,10 +112,35 @@ TSLanguage >> initialize [
 ]
 
 { #category : 'query' }
+TSLanguage >> jsGrammarString [
+
+	^ self jsGrammarStringForLanguageNamed: self name
+]
+
+{ #category : 'query' }
+TSLanguage >> jsGrammarStringForLanguageNamed: languageName [
+
+	| sharePath |
+	sharePath := Smalltalk vm directory asFileReference parent / 'share'
+	             / 'tree-sitter' / 'language' / languageName
+	             / 'grammar.js'.
+
+	^ sharePath exists
+		  ifTrue: [ sharePath contents ]
+		  ifFalse: [ String empty ]
+]
+
+{ #category : 'query' }
 TSLanguage >> languageHandle: lHandle queryString: qString queryClass: class [
 
 	<primitive: 'primitive_ts_query_new' module: 'TreeSitterPlugin'>
 	^ nil
+]
+
+{ #category : 'query' }
+TSLanguage >> name [
+
+	self subclassResponsibility
 ]
 
 { #category : 'instance creation' }

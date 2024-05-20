@@ -51,6 +51,12 @@ TSJsonLanguage >> initialize [
 			 , (SHStyleElement withTokens: { 'true' }) color asHexString) }
 ]
 
+{ #category : 'query' }
+TSJsonLanguage >> name [
+
+	^ 'json'
+]
+
 { #category : 'instance creation' }
 TSJsonLanguage >> newLanguageHandle [
 

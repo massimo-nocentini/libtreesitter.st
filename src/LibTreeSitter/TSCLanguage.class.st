@@ -61,6 +61,12 @@ TSCLanguage >> initialize [
 			 , (SHStyleElement withTokens: { 'true' }) color asHexString) }
 ]
 
+{ #category : 'query' }
+TSCLanguage >> name [
+
+	^ 'c'
+]
+
 { #category : 'instance creation' }
 TSCLanguage >> newLanguageHandle [
 

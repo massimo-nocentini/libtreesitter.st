@@ -67,6 +67,19 @@ TSChunkTest >> testHighlightsQueryMatches [
 ]
 
 { #category : 'tests' }
+TSChunkTest >> testHighlightsQueryMatchesGrammarJavascript [
+
+	| captures lang tree |
+	lang := TSLanguage javascript.
+
+	tree := lang parser treeOfString: lang jsGrammarString.
+
+	captures := lang highlightsQuery matchesOnTree: tree.
+
+	self assert: captures isNotEmpty
+]
+
+{ #category : 'tests' }
 TSChunkTest >> testHighlightsQueryMatchesJavascript [
 
 	| captures lang tree |
