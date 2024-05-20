@@ -88,7 +88,7 @@ TSLanguage >> highlightsQueryStringForLanguageNamed: languageName [
 
 	| sharePath |
 	sharePath := Smalltalk vm directory asFileReference parent / 'share'
-	             / 'tree-sitter' / 'query' / languageName
+	             / 'tree-sitter' / 'language' / languageName / 'queries'
 	             / 'highlights.scm'.
 
 	^ sharePath exists

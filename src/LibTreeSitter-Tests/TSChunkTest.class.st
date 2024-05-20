@@ -46,7 +46,9 @@ TSChunkTest >> testCreateQuery [
 { #category : 'tests' }
 TSChunkTest >> testHighlightsQueryForC [
 
-	self assert: TSLanguage c highlightsQueryString size > 1000
+	self
+		assert: TSLanguage c highlightsQueryString size > 1000;
+		assert: TSLanguage json highlightsQueryString size > 250
 ]
 
 { #category : 'tests' }
@@ -59,7 +61,7 @@ TSChunkTest >> testHighlightsQueryMatches [
 		        'int main (int argc, char **argv) { printf("Hello world!"); }'.
 
 	captures := lang highlightsQuery matchesOnTree: tree.
-captures inspect.
+
 	self assert: captures isNotEmpty
 ]
 

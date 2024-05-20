@@ -4,11 +4,18 @@ Class {
 	#instVars : [
 		'name',
 		'startPoint',
-		'endPoint'
+		'endPoint',
+		'discoverIndex'
 	],
 	#category : 'LibTreeSitter',
 	#package : 'LibTreeSitter'
 }
+
+{ #category : 'accessing' }
+TSQueryCapture >> discoverIndex [
+
+	^ discoverIndex
+]
 
 { #category : 'accessing' }
 TSQueryCapture >> endPoint [

@@ -8,6 +8,22 @@ Class {
 	#package : 'LibTreeSitter'
 }
 
+{ #category : 'query' }
+TSJsonLanguage >> highlightsQueryString [
+
+	^ (self highlightsQueryStringForLanguageNamed: 'json') , '
+
+"{" @opening.brace
+
+"}" @closing.brace
+
+"[" @opening.squaredb
+
+"]" @closing.squaredb
+
+'
+]
+
 { #category : 'initialization' }
 TSJsonLanguage >> initialize [
 
@@ -33,6 +49,13 @@ TSJsonLanguage >> initialize [
 			 , (SHStyleElement withTokens: #( string )) color asHexString) };
 		at: 'constant.builtin' put: { ('foreground #'
 			 , (SHStyleElement withTokens: { 'true' }) color asHexString) }
+]
+
+{ #category : 'instance creation' }
+TSJsonLanguage >> newLanguageHandle [
+
+	<primitive: 'primitive_tree_sitter_json' module: 'TreeSitterPlugin'>
+	self primitiveFail
 ]
 
 { #category : 'as yet unclassified' }

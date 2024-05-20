@@ -12,7 +12,7 @@ Class {
 { #category : 'evaluating' }
 TSChunk >> asRSPangoShapeUsingFont: aFont [
 
-	| tsLanguage code selector shape |
+	| code selector |
 	selector := language asSymbol.
 
 	code := sourceCode replaceAllTabsWithThreeSpaces.
@@ -28,21 +28,17 @@ TSChunk >> asRSPangoShapeUsingFont: aFont [
 			  presenter textWithStyle asRSPangoShapeUsingFont:
 				  LogicalFont pangoMonospace ]
 		  ifFalse: [
-			  shape := RSPangoText new
-				           font: aFont;
-				           text: code;
-				           yourself.
+			  | chunks |
+			  chunks := OrderedCollection new.
 
 			  (TSLanguage respondsTo: selector) ifTrue: [
-				  | chunks matches tree sorted cumulatedSizes |
+				  | matches tree sorted cumulatedSizes tsLanguage |
 				  cumulatedSizes := code cumulatedLineSizes.
 
 				  tsLanguage := TSLanguage perform: selector.
 				  tree := tsLanguage parser treeOfString: code.
 				  matches := tsLanguage highlightsQuery
 					             matchesGroupByCategoryOnTree: tree.
-
-				  chunks := OrderedCollection new.
 
 				  sorted := SortedCollection sortUsing: [ :a :b |
 					            a first = b first
@@ -69,14 +65,14 @@ TSChunk >> asRSPangoShapeUsingFont: aFont [
 										  spec.
 										  priority } ] ] ] ].
 
-				  sorted withIndexDo: [ :tuple :j |
-					  chunks add: ('{1} {2} {3}' format: tuple) ].
+				  sorted do: [ :tuple |
+					  chunks add: ('{1} {2} {3}' format: tuple) "just exclude the priority" ].
 
-				  shape attributesChunks: chunks ].
-
-
-
-			  shape asCompositeShape ]
+				  RSPangoText new
+					  font: aFont;
+					  text: code;
+					  attributesChunks: chunks;
+					  asCompositeShape ] ]
 ]
 
 { #category : 'accessing' }
