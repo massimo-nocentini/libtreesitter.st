@@ -23,7 +23,7 @@ RSUMLTreeSitterGrammarJSViewerCalypso >> buildUmlCanvas [
 	| lang shape |
 	lang := self targetClass new.
 	shape := TSChunk new
-		         language: lang name;
+		         language: 'javascript';
 		         sourceCode: lang jsGrammarString;
 		         asRSPangoShapeUsingFont: LogicalFont pangoMonospace.
 	"shape children first asMorph openInWindow."
