@@ -8,12 +8,6 @@ Class {
 	#package : 'LibTreeSitter'
 }
 
-{ #category : 'query' }
-TSJavascriptLanguage >> highlightsQueryString [
-
-	^ self highlightsQueryStringForLanguageNamed: 'javascript'
-]
-
 { #category : 'initialization' }
 TSJavascriptLanguage >> initialize [
 

@@ -8,10 +8,10 @@ Class {
 	#package : 'LibTreeSitter'
 }
 
-{ #category : 'query' }
+{ #category : 'as yet unclassified' }
 TSJsonLanguage >> highlightsQueryString [
 
-	^ (self highlightsQueryStringForLanguageNamed: 'json') , '
+	^ super highlightsQueryString , '
 
 "{" @opening.brace
 

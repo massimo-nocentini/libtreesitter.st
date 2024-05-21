@@ -11,7 +11,7 @@ Class {
 { #category : 'query' }
 TSCLanguage >> highlightsQueryString [
 
-	^ (self highlightsQueryStringForLanguageNamed: 'c') , '
+	^ super highlightsQueryString , '
 	
 (function_declarator
   declarator: (identifier) @function.decl)

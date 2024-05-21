@@ -86,15 +86,9 @@ TSLanguage >> highlightsQuery [
 { #category : 'query' }
 TSLanguage >> highlightsQueryString [
 
-	self subclassResponsibility
-]
-
-{ #category : 'query' }
-TSLanguage >> highlightsQueryStringForLanguageNamed: languageName [
-
 	| sharePath |
 	sharePath := Smalltalk vm directory asFileReference parent / 'share'
-	             / 'tree-sitter' / 'language' / languageName / 'queries'
+	             / 'tree-sitter' / 'language' / self name / 'queries'
 	             / 'highlights.scm'.
 
 	^ sharePath exists
@@ -114,16 +108,9 @@ TSLanguage >> initialize [
 { #category : 'query' }
 TSLanguage >> jsGrammarString [
 
-	^ self jsGrammarStringForLanguageNamed: self name
-]
-
-{ #category : 'query' }
-TSLanguage >> jsGrammarStringForLanguageNamed: languageName [
-
 	| sharePath |
 	sharePath := Smalltalk vm directory asFileReference parent / 'share'
-	             / 'tree-sitter' / 'language' / languageName
-	             / 'grammar.js'.
+	             / 'tree-sitter' / 'language' / self name / 'grammar.js'.
 
 	^ sharePath exists
 		  ifTrue: [ sharePath contents ]
