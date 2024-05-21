@@ -8,6 +8,19 @@ Class {
 	#package : 'LibTreeSitter-Tests'
 }
 
+{ #category : 'chunks - python' }
+TSChunkTest >> pythonFibChunk [
+
+	^ '
+def fib(n):
+	a, b = 0, 1
+	while a < n:
+		print(a, end=" ")
+		a, b = b, a+b
+	
+fib (1000)'
+]
+
 { #category : 'tests' }
 TSChunkTest >> testASTofCSimpleChunk [
 
@@ -30,13 +43,8 @@ TSChunkTest >> testASTofCSimpleChunk [
 TSChunkTest >> testASTofPythonSimpleChunk [
 
 	| node src |
-	src := 'def fib(n):
-	a, b = 0, 1
-	while a < n:
-		print(a, end=" ")
-		a, b = b, a+b
-	
-fib (1000)'.
+	src := '
+a + b # hello'.
 
 	node := TSLanguage python parser astOfString: src.
 	node inspect.

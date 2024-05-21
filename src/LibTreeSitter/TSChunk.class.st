@@ -28,11 +28,15 @@ TSChunk >> asRSPangoShapeUsingFont: aFont [
 			  presenter textWithStyle asRSPangoShapeUsingFont:
 				  LogicalFont pangoMonospace ]
 		  ifFalse: [
-			  | chunks |
-			  chunks := OrderedCollection new.
+			  | shape |
+			  shape := RSPangoText new
+				           font: aFont;
+				           text: code;
+				           yourself.
 
 			  (TSLanguage respondsTo: selector) ifTrue: [
-				  | matches tree sorted cumulatedSizes tsLanguage |
+				  | matches tree sorted cumulatedSizes tsLanguage chunks |
+				  chunks := OrderedCollection new.
 				  cumulatedSizes := code cumulatedLineSizes.
 
 				  tsLanguage := TSLanguage perform: selector.
@@ -68,11 +72,9 @@ TSChunk >> asRSPangoShapeUsingFont: aFont [
 				  sorted do: [ :tuple |
 					  chunks add: ('{1} {2} {3}' format: tuple) "just exclude the priority" ].
 
-				  RSPangoText new
-					  font: aFont;
-					  text: code;
-					  attributesChunks: chunks;
-					  asCompositeShape ] ]
+				  shape attributesChunks: chunks ].
+
+			  shape asCompositeShape ]
 ]
 
 { #category : 'accessing' }
