@@ -55,6 +55,12 @@ TSLanguage class >> psql [
 	^ TSPSQLLanguage new
 ]
 
+{ #category : 'languages' }
+TSLanguage class >> python [
+
+	^ TSPythonLanguage new
+]
+
 { #category : 'visiting' }
 TSLanguage >> acceptSlotDescriptorsVisitor: aVisitor [
 

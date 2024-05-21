@@ -27,6 +27,32 @@ TSChunkTest >> testASTofCSimpleChunk [
 ]
 
 { #category : 'tests' }
+TSChunkTest >> testASTofPythonSimpleChunk [
+
+	| node src |
+	src := 'def fib(n):
+    a, b = 0, 1
+    while a < n:
+        print(a, end='' '')
+        a, b = b, a+b
+    print()
+
+fib(1000)'.
+
+	node := TSLanguage python parser astOfString: src.
+	node inspect.
+
+	self
+		assert: node isNotNil;
+		assert: node content equals: src.
+
+	self
+		assert:
+		(src copyFrom: node absolutePoint x to: node absolutePoint y)
+		equals: src
+]
+
+{ #category : 'tests' }
 TSChunkTest >> testAllocatingLanguageHandleForC [
 
 	self deny: TSLanguage c getHandle isNull
@@ -49,7 +75,8 @@ TSChunkTest >> testHighlightsQueryForC [
 	self
 		assert: TSLanguage c highlightsQueryString size > 1000;
 		assert: TSLanguage json highlightsQueryString size > 250;
-		assert: TSLanguage javascript highlightsQueryString size > 250
+		assert: TSLanguage javascript highlightsQueryString size > 250;
+		assert: TSLanguage python highlightsQueryString size > 1900
 ]
 
 { #category : 'tests' }
@@ -118,6 +145,25 @@ TSChunkTest >> testParsingCSimpleChunk [
 	| tree |
 	tree := TSLanguage c parser treeOfString:
 		        'int main (int argc, char **argv) { printf("Hello world!"); }'.
+
+	self deny: tree getHandle isNull
+]
+
+{ #category : 'tests' }
+TSChunkTest >> testParsingPythonSimpleChunk [
+
+	| tree |
+	tree := TSLanguage python parser treeOfString:
+		        '
+def fib(n):
+    a, b = 0, 1
+    while a < n:
+        print(a, end='' '')
+        a, b = b, a+b
+    print()
+
+fib(1000)
+'.
 
 	self deny: tree getHandle isNull
 ]
