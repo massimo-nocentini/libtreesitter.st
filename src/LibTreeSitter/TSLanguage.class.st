@@ -55,10 +55,25 @@ TSLanguage class >> psql [
 	^ TSPSQLLanguage new
 ]
 
+{ #category : 'visiting' }
+TSLanguage >> acceptSlotDescriptorsVisitor: aVisitor [
+
+	^ aVisitor visitTSLanguage: self
+]
+
 { #category : 'as yet unclassified' }
 TSLanguage >> allocate [
 
 	^ self newLanguageHandle
+]
+
+{ #category : 'converting' }
+TSLanguage >> asGrammarJsShape [
+
+	^ TSChunk new
+		  language: self name;
+		  sourceCode: self jsGrammarString;
+		  asRSPangoShapeUsingFont: LogicalFont pangoMonospace
 ]
 
 { #category : 'accessing' }

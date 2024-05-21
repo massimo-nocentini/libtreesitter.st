@@ -20,7 +20,7 @@ RSUMLTreeSitterGrammarJSViewerCalypso class >> shouldBeActivatedInContext: aBrow
 { #category : 'building' }
 RSUMLTreeSitterGrammarJSViewerCalypso >> buildUmlCanvas [
 
-	| lang shape canvas |
+	| lang shape |
 	lang := self targetClass new.
 	shape := TSChunk new
 		         language: lang name;
