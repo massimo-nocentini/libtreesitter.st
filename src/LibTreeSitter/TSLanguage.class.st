@@ -1,9 +1,9 @@
 Class {
 	#name : 'TSLanguage',
 	#superclass : 'Object',
-	#traits : 'TExternalAddressHolder',
 	#classTraits : 'TExternalAddressHolder classTrait',
 	#instVars : [
+		'handle',
 		'highlights',
 		'session'
 	],
@@ -86,12 +86,6 @@ TSLanguage >> acceptSlotDescriptorsVisitor: aVisitor [
 	^ aVisitor visitTSLanguage: self
 ]
 
-{ #category : 'as yet unclassified' }
-TSLanguage >> allocate [
-
-	^ self newLanguageHandle
-]
-
 { #category : 'converting' }
 TSLanguage >> asGrammarJsShape [
 
@@ -111,7 +105,7 @@ TSLanguage >> at: pattern [
 TSLanguage >> getHandle [
 
 	session == Smalltalk session ifFalse: [
-		handle := self allocate.
+		handle := self newLanguageHandle.
 		session := Smalltalk session ].
 
 	^ handle
@@ -141,7 +135,7 @@ TSLanguage >> initialize [
 
 	super initialize.
 
-	handle := self allocate.
+	handle := self newLanguageHandle.
 	highlights := Dictionary new
 ]
 
