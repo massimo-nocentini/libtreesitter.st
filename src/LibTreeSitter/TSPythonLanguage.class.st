@@ -38,6 +38,10 @@ TSPythonLanguage >> initialize [
 				('family ' , LogicalFont pangoMath familyName) };
 		at: 'comment' put: { ('foreground #'
 			 , (SHStyleElement withTokens: #( string )) color asHexString) };
+		at: 'comment' put: {
+				('foreground #'
+				 , (SHStyleElement withTokens: #( comment )) color asHexString).
+				'style italic' };
 		at: 'number' put: {
 				('foreground #'
 				 , (SHStyleElement withTokens: #( number )) color asHexString).
@@ -56,5 +60,5 @@ TSPythonLanguage >> newLanguageHandle [
 { #category : 'as yet unclassified' }
 TSPythonLanguage >> orderedPatterns [
 
-	^ { 'variable'. 'keyword'. 'number' }
+	^ { 'variable'. 'keyword'. 'number'. 'comment' }
 ]

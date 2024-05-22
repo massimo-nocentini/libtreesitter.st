@@ -5,6 +5,7 @@ Class {
 		'name',
 		'startPoint',
 		'endPoint',
+		'absolutePoint',
 		'discoverIndex'
 	],
 	#category : 'LibTreeSitter-Core',
@@ -25,10 +26,9 @@ TSQueryCapture >> endPoint [
 ]
 
 { #category : 'accessing' }
-TSQueryCapture >> interval: cumulatedSizes [
+TSQueryCapture >> interval [
 
-	^ (cumulatedSizes at: self startPoint y) + self startPoint x to:
-	  (cumulatedSizes at: self endPoint y) + self endPoint x
+	^ absolutePoint x to: absolutePoint y
 ]
 
 { #category : 'accessing' }

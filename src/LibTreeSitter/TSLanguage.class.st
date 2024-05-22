@@ -101,7 +101,7 @@ TSLanguage >> at: pattern [
 	^ highlights at: pattern ifAbsent: [ #(  ) ]
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 TSLanguage >> getHandle [
 
 	session == Smalltalk session ifFalse: [

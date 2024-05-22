@@ -48,9 +48,8 @@ TSChunk >> asRSPangoShapeUsingFont: aFont [
 { #category : 'evaluating' }
 TSChunk >> collectChunksOnSourceCode: code treeSitterLanguage: tsLanguage [
 
-	| matches tree sorted cumulatedSizes chunks |
+	| matches tree sorted chunks |
 	chunks := OrderedCollection new.
-	cumulatedSizes := code cumulatedLineSizes.
 
 	tree := tsLanguage parser treeOfString: code.
 	matches := tsLanguage highlightsQuery matchesGroupByCategoryOnTree:
@@ -66,11 +65,11 @@ TSChunk >> collectChunksOnSourceCode: code treeSitterLanguage: tsLanguage [
 			| specs |
 			specs := tsLanguage at: pattern.
 			captures do: [ :capture |
-				| abs from to |
-				abs := capture interval: cumulatedSizes.
+				| interval from to |
+				interval := capture interval.
 
-				from := abs first - 1.
-				to := abs last.
+				from := interval first - 1.
+				to := interval last.
 
 				"capture at: 'content' put: (clean_text copyFrom: from to: to)."
 
