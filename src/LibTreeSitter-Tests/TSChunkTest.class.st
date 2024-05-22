@@ -165,17 +165,7 @@ TSChunkTest >> testParsingCSimpleChunk [
 TSChunkTest >> testParsingPythonSimpleChunk [
 
 	| tree |
-	tree := TSLanguage python parser treeOfString:
-		        '
-def fib(n):
-    a, b = 0, 1
-    while a < n:
-        print(a, end='' '')
-        a, b = b, a+b
-    print()
-
-fib(1000)
-'.
+	tree := TSLanguage python parser treeOfString: self pythonFibChunk.
 
 	self deny: tree getHandle isNull
 ]
@@ -185,6 +175,9 @@ TSChunkTest >> testSettingLanguageCToParser [
 
 	self
 		assert: TSLanguage c parser hasLanguageAssigned;
+		assert: TSLanguage json parser hasLanguageAssigned;
+		assert: TSLanguage javascript parser hasLanguageAssigned;
+		assert: TSLanguage python parser hasLanguageAssigned;
 		deny: TSParser new hasLanguageAssigned
 ]
 

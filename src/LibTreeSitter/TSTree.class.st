@@ -18,28 +18,15 @@ TSTree class >> deallocateHandle: anExternalAddress [
 	
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'ast' }
 TSTree >> ast [
 
 	^ self onTreeHandle: self getHandle src: sourceCode nodeClass: TSNode
 ]
 
-{ #category : 'accessing' }
-TSTree >> onTreeHandle: tHandle query: query class: class [
-
-	<primitive: 'primitive_ts_query_new' module: 'TreeSitterPlugin'>
-	^ nil
-]
-
-{ #category : 'as yet unclassified' }
+{ #category : 'ast' }
 TSTree >> onTreeHandle: tHandle src: src nodeClass: class [
 
 	<primitive: 'primitive_ts_ast' module: 'TreeSitterPlugin'>
 	^ nil
-]
-
-{ #category : 'accessing' }
-TSTree >> query: query [
-
-	^ self onTreeHandle: self getHandle query: query class: TSQuery
 ]

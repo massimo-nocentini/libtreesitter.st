@@ -65,12 +65,6 @@ TSParser >> onParserHandle: pHandle setLanguageHandle: lHandle [
 ]
 
 { #category : 'as yet unclassified' }
-TSParser >> source: src query: query [
-
-	^ (self treeOfString: src) query: query
-]
-
-{ #category : 'as yet unclassified' }
 TSParser >> treeOfString: src [
 
 	^ self

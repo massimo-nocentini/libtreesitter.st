@@ -189,6 +189,6 @@ TSLanguage >> query: qString [
 
 	^ self
 		  languageHandle: self getHandle
-		  queryString: qString
+		  queryString: qString withUnixLineEndings
 		  queryClass: TSQuery
 ]
