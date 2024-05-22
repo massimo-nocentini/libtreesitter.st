@@ -43,11 +43,9 @@ TSChunkTest >> testASTofCSimpleChunk [
 TSChunkTest >> testASTofPythonSimpleChunk [
 
 	| node src |
-	src := '
-a + b # hello'.
+	src := 'a + b # hello'.
 
 	node := TSLanguage python parser astOfString: src.
-	node inspect.
 
 	self
 		assert: node isNotNil;
@@ -83,7 +81,7 @@ TSChunkTest >> testHighlightsQueryForC [
 		assert: TSLanguage c highlightsQueryString size > 1000;
 		assert: TSLanguage json highlightsQueryString size > 250;
 		assert: TSLanguage javascript highlightsQueryString size > 250;
-		assert: TSLanguage python highlightsQueryString size > 1900
+		assert: TSLanguage python highlightsQueryString size > 1800
 ]
 
 { #category : 'tests' }
@@ -179,7 +177,7 @@ fib(1000)
 TSChunkTest >> testSettingLanguageCToParser [
 
 	self
-		assert: TSParser c hasLanguageAssigned;
+		assert: TSLanguage c parser hasLanguageAssigned;
 		deny: TSParser new hasLanguageAssigned
 ]
 

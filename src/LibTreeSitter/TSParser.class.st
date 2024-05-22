@@ -4,20 +4,11 @@ Class {
 	#traits : 'TExternalAddressHolder',
 	#classTraits : 'TExternalAddressHolder classTrait',
 	#instVars : [
-		'handle',
 		'assigned'
 	],
 	#category : 'LibTreeSitter',
 	#package : 'LibTreeSitter'
 }
-
-{ #category : 'language' }
-TSParser class >> c [
-
-	^ self new
-		  language: TSLanguage c;
-		  yourself
-]
 
 { #category : 'finalization' }
 TSParser class >> deallocateHandle: anExternalAddress [
