@@ -19,8 +19,9 @@ Class {
 		'hasError',
 		'children'
 	],
-	#category : 'LibTreeSitter',
-	#package : 'LibTreeSitter'
+	#category : 'LibTreeSitter-Core',
+	#package : 'LibTreeSitter',
+	#tag : 'Core'
 }
 
 { #category : 'accessing' }

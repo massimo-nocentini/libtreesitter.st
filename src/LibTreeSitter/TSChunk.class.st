@@ -5,8 +5,9 @@ Class {
 		'language',
 		'sourceCode'
 	],
-	#category : 'LibTreeSitter',
-	#package : 'LibTreeSitter'
+	#category : 'LibTreeSitter-API',
+	#package : 'LibTreeSitter',
+	#tag : 'API'
 }
 
 { #category : 'evaluating' }

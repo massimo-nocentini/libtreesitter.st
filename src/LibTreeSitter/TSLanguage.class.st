@@ -10,8 +10,9 @@ Class {
 	#classVars : [
 		'Languages'
 	],
-	#category : 'LibTreeSitter',
-	#package : 'LibTreeSitter'
+	#category : 'LibTreeSitter-Core',
+	#package : 'LibTreeSitter',
+	#tag : 'Core'
 }
 
 { #category : 'languages' }
@@ -71,18 +72,6 @@ TSLanguage class >> languageNamed: langName ifPresent: pBlock ifAbsent: aBlock [
 		  at: langName
 		  ifPresent: [ :aClass | pBlock value: aClass new ]
 		  ifAbsent: aBlock
-]
-
-{ #category : 'languages' }
-TSLanguage class >> lua [
-
-	^ TSLuaLanguage new
-]
-
-{ #category : 'languages' }
-TSLanguage class >> psql [
-
-	^ TSPSQLLanguage new
 ]
 
 { #category : 'languages' }

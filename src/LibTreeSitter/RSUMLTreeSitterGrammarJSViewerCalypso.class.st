@@ -6,8 +6,9 @@ I am a variant that uses a Microdown visitor to produce a _Roassal rendering_ of
 Class {
 	#name : 'RSUMLTreeSitterGrammarJSViewerCalypso',
 	#superclass : 'RSUMLClassCalypso',
-	#category : 'LibTreeSitter',
-	#package : 'LibTreeSitter'
+	#category : 'LibTreeSitter-Calypso',
+	#package : 'LibTreeSitter',
+	#tag : 'Calypso'
 }
 
 { #category : 'testing' }

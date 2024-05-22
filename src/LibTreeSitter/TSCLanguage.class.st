@@ -4,8 +4,9 @@ Class {
 	#instVars : [
 		'braces'
 	],
-	#category : 'LibTreeSitter',
-	#package : 'LibTreeSitter'
+	#category : 'LibTreeSitter-Languages',
+	#package : 'LibTreeSitter',
+	#tag : 'Languages'
 }
 
 { #category : 'as yet unclassified' }
