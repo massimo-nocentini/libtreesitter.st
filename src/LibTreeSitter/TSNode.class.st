@@ -85,12 +85,6 @@ TSNode >> isNull [
 ]
 
 { #category : 'accessing' }
-TSNode >> nodeString [
-
-	^ nodeString
-]
-
-{ #category : 'accessing' }
 TSNode >> siblingIndex [
 
 	^ siblingIndex
