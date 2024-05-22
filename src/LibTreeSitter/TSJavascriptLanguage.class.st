@@ -39,7 +39,11 @@ TSJavascriptLanguage >> initialize [
 		at: 'string' put: { ('foreground #'
 			 , (SHStyleElement withTokens: #( string )) color asHexString) };
 		at: 'constant.builtin' put: { ('foreground #'
-			 , (SHStyleElement withTokens: { 'true' }) color asHexString) }
+			 , (SHStyleElement withTokens: { 'true' }) color asHexString) };
+		at: 'comment' put: {
+				('foreground #'
+				 , (SHStyleElement withTokens: #( comment )) color asHexString).
+				'style italic' }
 ]
 
 { #category : 'instance creation' }
@@ -54,5 +58,5 @@ TSJavascriptLanguage >> orderedPatterns [
 
 	^ { 'number'. 'string.special.key'. 'constant.builtin'.
 	  'string'. 'opening.brace'. 'closing.brace'. 'opening.squaredb'.
-	  'closing.squaredb' }
+	  'closing.squaredb'. 'comment' }
 ]

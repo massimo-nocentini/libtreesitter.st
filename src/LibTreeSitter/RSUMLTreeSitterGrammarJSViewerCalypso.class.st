@@ -21,17 +21,13 @@ RSUMLTreeSitterGrammarJSViewerCalypso class >> shouldBeActivatedInContext: aBrow
 { #category : 'building' }
 RSUMLTreeSitterGrammarJSViewerCalypso >> buildUmlCanvas [
 
-	| lang shape |
+	| lang |
 	lang := self targetClass new.
-	shape := TSChunk new
-		         language: 'javascript';
-		         sourceCode: lang jsGrammarString;
-		         asRSPangoShapeUsingFont: LogicalFont pangoMonospace.
-	"shape children first asMorph openInWindow."
+
 	^ RSCanvas new
 		  useRTree;
 		  @ RSCanvasController;
-		  add: shape;
+		  add: lang asGrammarJsShape;
 		  zoomToFit;
 		  yourself
 ]

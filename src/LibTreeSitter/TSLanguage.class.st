@@ -90,7 +90,7 @@ TSLanguage >> acceptSlotDescriptorsVisitor: aVisitor [
 TSLanguage >> asGrammarJsShape [
 
 	^ TSChunk new
-		  language: self name;
+		  language: 'javascript';
 		  sourceCode: self jsGrammarString;
 		  asRSPangoShapeUsingFont: LogicalFont pangoMonospace
 ]
