@@ -24,12 +24,6 @@ TSParser >> allocate [
 	^ ExternalAddress null
 ]
 
-{ #category : 'as yet unclassified' }
-TSParser >> astOfString: src [
-
-	^ (self treeOfString: src) astOfString: src
-]
-
 { #category : 'accessing' }
 TSParser >> hasLanguageAssigned [
 
@@ -54,11 +48,11 @@ TSParser >> language: lang [
 ]
 
 { #category : 'as yet unclassified' }
-TSParser >> onParserHandle: pHandle parseString: src [
+TSParser >> onParserHandle: pHandle parseString: src treeClass: class [
 
 	<primitive: 'primitive_ts_parser_parse_string' module:
 	'TreeSitterPlugin'>
-	^ ExternalAddress null
+	^ nil
 ]
 
 { #category : 'as yet unclassified' }
@@ -78,7 +72,8 @@ TSParser >> source: src query: query [
 { #category : 'as yet unclassified' }
 TSParser >> treeOfString: src [
 
-	^ TSTree new
-		  handle: (self onParserHandle: self getHandle parseString: src);
-		  yourself
+	^ self
+		  onParserHandle: self getHandle
+		  parseString: src
+		  treeClass: TSTree
 ]

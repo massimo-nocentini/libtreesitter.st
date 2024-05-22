@@ -13,21 +13,24 @@ TSChunkTest >> pythonFibChunk [
 
 	^ '
 def fib(n):
+	# comment
 	a, b = 0, 1
 	while a < n:
 		print(a, end=" ")
 		a, b = b, a+b
-	
-fib (1000)'
+
+fib (1000)
+'
 ]
 
 { #category : 'tests' }
 TSChunkTest >> testASTofCSimpleChunk [
 
-	| node src |
+	| tree node src |
 	src := 'int main (int argc, char **argv) { printf("Hello world!"); }'.
 
-	node := TSLanguage c parser astOfString: src.
+	tree := TSLanguage c parser treeOfString: src.
+	node := tree ast.
 
 	self
 		assert: node isNotNil;
@@ -42,10 +45,12 @@ TSChunkTest >> testASTofCSimpleChunk [
 { #category : 'tests' }
 TSChunkTest >> testASTofPythonSimpleChunk [
 
-	| node src |
-	src := 'a + b # hello'.
+	| tree node src |
+	src := self pythonFibChunk. "'a + b # hello'"
 
-	node := TSLanguage python parser astOfString: src.
+	tree := TSLanguage python parser treeOfString: src.
+	node := tree ast.
+	node inspect.
 
 	self
 		assert: node isNotNil;

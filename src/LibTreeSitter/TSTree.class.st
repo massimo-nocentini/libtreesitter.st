@@ -3,6 +3,9 @@ Class {
 	#superclass : 'Object',
 	#traits : 'TExternalAddressHolder',
 	#classTraits : 'TExternalAddressHolder classTrait',
+	#instVars : [
+		'sourceCode'
+	],
 	#category : 'LibTreeSitter',
 	#package : 'LibTreeSitter'
 }
@@ -15,12 +18,12 @@ TSTree class >> deallocateHandle: anExternalAddress [
 ]
 
 { #category : 'as yet unclassified' }
-TSTree >> astOfString: src [
+TSTree >> ast [
 
 	^ self
 		  onTreeHandle: self getHandle
-		  src: src
-		  cumulatedSizes: src cumulatedLineSizes
+		  src: sourceCode withUnixLineEndings
+		  cumulatedSizes: sourceCode withUnixLineEndings cumulatedLineSizes
 		  nodeClass: TSNode
 ]
 
