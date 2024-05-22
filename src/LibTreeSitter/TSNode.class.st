@@ -17,7 +17,6 @@ Class {
 		'isMissing',
 		'isExtra',
 		'hasError',
-		'nodeString',
 		'children'
 	],
 	#category : 'LibTreeSitter',

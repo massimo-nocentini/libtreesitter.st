@@ -26,11 +26,10 @@ fib (1000)
 { #category : 'tests' }
 TSChunkTest >> testASTofCSimpleChunk [
 
-	| tree node src |
+	| node src |
 	src := 'int main (int argc, char **argv) { printf("Hello world!"); }'.
 
-	tree := TSLanguage c parser treeOfString: src.
-	node := tree ast.
+	node := (TSLanguage c parser treeOfString: src) ast.
 
 	self
 		assert: node isNotNil;
@@ -45,16 +44,15 @@ TSChunkTest >> testASTofCSimpleChunk [
 { #category : 'tests' }
 TSChunkTest >> testASTofPythonSimpleChunk [
 
-	| tree node src |
+	| node src |
 	src := self pythonFibChunk trimLeft withUnixLineEndings.
 
-	tree := TSLanguage python parser treeOfString: src.
-	node := tree ast.
-	node inspect.
+	node := (TSLanguage python parser treeOfString: src) ast.
 
 	self
 		assert: node isNotNil;
-		assert: node content equals: src.
+		assert: node content equals: src;
+		assert: node children size equals: 2.
 
 	self
 		assert:
@@ -63,9 +61,13 @@ TSChunkTest >> testASTofPythonSimpleChunk [
 ]
 
 { #category : 'tests' }
-TSChunkTest >> testAllocatingLanguageHandleForC [
+TSChunkTest >> testAllocatingLanguageHandles [
 
-	self deny: TSLanguage c getHandle isNull
+	self
+		deny: TSLanguage c getHandle isNull;
+		deny: TSLanguage json getHandle isNull;
+		deny: TSLanguage javascript getHandle isNull;
+		deny: TSLanguage python getHandle isNull
 ]
 
 { #category : 'tests' }
