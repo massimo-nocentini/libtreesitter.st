@@ -7,6 +7,9 @@ Class {
 		'highlights',
 		'session'
 	],
+	#classVars : [
+		'Languages'
+	],
 	#category : 'LibTreeSitter',
 	#package : 'LibTreeSitter'
 }
@@ -21,14 +24,26 @@ TSLanguage class >> c [
 TSLanguage class >> deallocateHandle: anExternalAddress [
 	"nothing to do here"
 
+	"<primitive: 'primitive_ts_language_delete' module: 'TreeSitterPlugin'>"
+
 	
 ]
 
-{ #category : 'finalization' }
-TSLanguage class >> freeLanguageHandle: anExternalAddress [
+{ #category : 'as yet unclassified' }
+TSLanguage class >> discoverLanguages [
 
-	<primitive: 'primitive_ts_language_delete' module: 'TreeSitterPlugin'>
-	
+	| dict |
+	dict := Dictionary new.
+
+	self subclasses do: [ :each | dict at: each languageName put: each ].
+
+	^ dict
+]
+
+{ #category : 'as yet unclassified' }
+TSLanguage class >> initialize [
+
+	Languages := self discoverLanguages
 ]
 
 { #category : 'languages' }
@@ -41,6 +56,21 @@ TSLanguage class >> javascript [
 TSLanguage class >> json [
 
 	^ TSJsonLanguage new
+]
+
+{ #category : 'accessing' }
+TSLanguage class >> languageName [
+
+	self subclassResponsibility
+]
+
+{ #category : 'as yet unclassified' }
+TSLanguage class >> languageNamed: langName ifPresent: pBlock ifAbsent: aBlock [
+
+	^ Languages
+		  at: langName
+		  ifPresent: [ :aClass | pBlock value: aClass new ]
+		  ifAbsent: aBlock
 ]
 
 { #category : 'languages' }
@@ -148,7 +178,7 @@ TSLanguage >> languageHandle: lHandle queryString: qString queryClass: class [
 { #category : 'query' }
 TSLanguage >> name [
 
-	self subclassResponsibility
+	^ self class languageName
 ]
 
 { #category : 'instance creation' }

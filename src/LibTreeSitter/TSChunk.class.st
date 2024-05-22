@@ -12,12 +12,12 @@ Class {
 { #category : 'evaluating' }
 TSChunk >> asRSPangoShapeUsingFont: aFont [
 
-	| code selector |
-	selector := language asSymbol.
+	| code langName |
+	langName := language asSymbol.
 
 	code := sourceCode replaceAllTabsWithThreeSpaces.
 
-	^ selector = MicAbstractCodeBlock defaultLanguage
+	^ langName = MicAbstractCodeBlock defaultLanguage
 		  ifTrue: [
 			  | presenter |
 			  presenter := SpCodePresenter new
@@ -28,53 +28,62 @@ TSChunk >> asRSPangoShapeUsingFont: aFont [
 			  presenter textWithStyle asRSPangoShapeUsingFont:
 				  LogicalFont pangoMonospace ]
 		  ifFalse: [
-			  | shape |
-			  shape := RSPangoText new
-				           font: aFont;
-				           text: code;
-				           yourself.
+			  | chunks |
+			  chunks := TSLanguage
+				            languageNamed: langName
+				            ifPresent: [ :tsLanguage |
+					            self
+						            collectChunksOnSourceCode: code
+						            treeSitterLanguage: tsLanguage ]
+				            ifAbsent: [ OrderedCollection new ].
 
-			  (TSLanguage respondsTo: selector) ifTrue: [
-				  | matches tree sorted cumulatedSizes tsLanguage chunks |
-				  chunks := OrderedCollection new.
-				  cumulatedSizes := code cumulatedLineSizes.
+			  RSPangoText new
+				  font: aFont;
+				  text: code;
+				  attributesChunks: chunks;
+				  asCompositeShape ]
+]
 
-				  tsLanguage := TSLanguage perform: selector.
-				  tree := tsLanguage parser treeOfString: code.
-				  matches := tsLanguage highlightsQuery
-					             matchesGroupByCategoryOnTree: tree.
+{ #category : 'evaluating' }
+TSChunk >> collectChunksOnSourceCode: code treeSitterLanguage: tsLanguage [
 
-				  sorted := SortedCollection sortUsing: [ :a :b |
-					            a first = b first
-						            ifTrue: [ a fourth > b fourth ]
-						            ifFalse: [ a first < b first ] ].
+	| matches tree sorted cumulatedSizes chunks |
+	chunks := OrderedCollection new.
+	cumulatedSizes := code cumulatedLineSizes.
 
-				  tsLanguage orderedPatterns withIndexDo: [ :pattern :priority |
-					  matches at: pattern ifPresent: [ :captures |
-						  | specs |
-						  specs := tsLanguage at: pattern.
-						  captures do: [ :capture |
-							  | abs from to |
-							  abs := capture interval: cumulatedSizes.
+	tree := tsLanguage parser treeOfString: code.
+	matches := tsLanguage highlightsQuery matchesGroupByCategoryOnTree:
+		           tree.
 
-							  from := abs first - 1.
-							  to := abs last.
+	sorted := SortedCollection sortUsing: [ :a :b |
+		          a first = b first
+			          ifTrue: [ a fourth > b fourth ]
+			          ifFalse: [ a first < b first ] ].
 
-							  "capture at: 'content' put: (clean_text copyFrom: from to: to)."
+	tsLanguage orderedPatterns withIndexDo: [ :pattern :priority |
+		matches at: pattern ifPresent: [ :captures |
+			| specs |
+			specs := tsLanguage at: pattern.
+			captures do: [ :capture |
+				| abs from to |
+				abs := capture interval: cumulatedSizes.
 
-							  specs do: [ :spec |
-								  sorted add: {
-										  from.
-										  to.
-										  spec.
-										  priority } ] ] ] ].
+				from := abs first - 1.
+				to := abs last.
 
-				  sorted do: [ :tuple |
-					  chunks add: ('{1} {2} {3}' format: tuple) "just exclude the priority" ].
+				"capture at: 'content' put: (clean_text copyFrom: from to: to)."
 
-				  shape attributesChunks: chunks ].
+				specs do: [ :spec |
+					sorted add: {
+							from.
+							to.
+							spec.
+							priority } ] ] ] ].
 
-			  shape asCompositeShape ]
+	sorted do: [ :tuple |
+		chunks add: ('{1} {2} {3}' format: tuple) "just exclude the priority" ].
+
+	^ chunks
 ]
 
 { #category : 'accessing' }

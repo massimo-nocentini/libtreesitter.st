@@ -8,6 +8,12 @@ Class {
 	#package : 'LibTreeSitter'
 }
 
+{ #category : 'as yet unclassified' }
+TSJavascriptLanguage class >> languageName [
+
+	^ 'javascript'
+]
+
 { #category : 'initialization' }
 TSJavascriptLanguage >> initialize [
 
@@ -33,12 +39,6 @@ TSJavascriptLanguage >> initialize [
 			 , (SHStyleElement withTokens: #( string )) color asHexString) };
 		at: 'constant.builtin' put: { ('foreground #'
 			 , (SHStyleElement withTokens: { 'true' }) color asHexString) }
-]
-
-{ #category : 'query' }
-TSJavascriptLanguage >> name [
-
-	^ 'javascript'
 ]
 
 { #category : 'instance creation' }

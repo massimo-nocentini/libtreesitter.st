@@ -9,6 +9,12 @@ Class {
 }
 
 { #category : 'as yet unclassified' }
+TSJsonLanguage class >> languageName [
+
+	^ 'json'
+]
+
+{ #category : 'as yet unclassified' }
 TSJsonLanguage >> highlightsQueryString [
 
 	^ super highlightsQueryString , '
@@ -49,12 +55,6 @@ TSJsonLanguage >> initialize [
 			 , (SHStyleElement withTokens: #( string )) color asHexString) };
 		at: 'constant.builtin' put: { ('foreground #'
 			 , (SHStyleElement withTokens: { 'true' }) color asHexString) }
-]
-
-{ #category : 'query' }
-TSJsonLanguage >> name [
-
-	^ 'json'
 ]
 
 { #category : 'instance creation' }

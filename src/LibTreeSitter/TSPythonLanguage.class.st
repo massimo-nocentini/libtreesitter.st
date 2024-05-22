@@ -8,6 +8,12 @@ Class {
 	#package : 'LibTreeSitter'
 }
 
+{ #category : 'as yet unclassified' }
+TSPythonLanguage class >> languageName [
+
+	^ 'python'
+]
+
 { #category : 'initialization' }
 TSPythonLanguage >> initialize [
 
@@ -37,12 +43,6 @@ TSPythonLanguage >> initialize [
 				('family ' , LogicalFont pangoMath familyName) };
 		at: 'keyword' put: { ('foreground #'
 			 , (SHStyleElement withTokens: { 'true' }) color asHexString) }
-]
-
-{ #category : 'query' }
-TSPythonLanguage >> name [
-
-	^ 'python'
 ]
 
 { #category : 'instance creation' }

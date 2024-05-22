@@ -1,6 +1,6 @@
 Class {
 	#name : 'TSPSQLLanguage',
-	#superclass : 'TSLanguage',
+	#superclass : 'Object',
 	#instVars : [
 		'braces'
 	],

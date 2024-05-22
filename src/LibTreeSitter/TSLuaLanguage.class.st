@@ -1,6 +1,6 @@
 Class {
 	#name : 'TSLuaLanguage',
-	#superclass : 'TSLanguage',
+	#superclass : 'Object',
 	#category : 'LibTreeSitter',
 	#package : 'LibTreeSitter'
 }

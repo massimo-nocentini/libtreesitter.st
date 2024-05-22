@@ -8,6 +8,12 @@ Class {
 	#package : 'LibTreeSitter'
 }
 
+{ #category : 'as yet unclassified' }
+TSCLanguage class >> languageName [
+
+	^ 'c'
+]
+
 { #category : 'query' }
 TSCLanguage >> highlightsQueryString [
 
@@ -59,12 +65,6 @@ TSCLanguage >> initialize [
 			 , (SHStyleElement withTokens: #( string )) color asHexString) };
 		at: 'constant' put: { ('foreground #'
 			 , (SHStyleElement withTokens: { 'true' }) color asHexString) }
-]
-
-{ #category : 'query' }
-TSCLanguage >> name [
-
-	^ 'c'
 ]
 
 { #category : 'instance creation' }
