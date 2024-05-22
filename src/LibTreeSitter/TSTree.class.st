@@ -20,11 +20,7 @@ TSTree class >> deallocateHandle: anExternalAddress [
 { #category : 'as yet unclassified' }
 TSTree >> ast [
 
-	^ self
-		  onTreeHandle: self getHandle
-		  src: sourceCode withUnixLineEndings
-		  cumulatedSizes: sourceCode withUnixLineEndings cumulatedLineSizes
-		  nodeClass: TSNode
+	^ self onTreeHandle: self getHandle src: sourceCode nodeClass: TSNode
 ]
 
 { #category : 'accessing' }
@@ -35,7 +31,7 @@ TSTree >> onTreeHandle: tHandle query: query class: class [
 ]
 
 { #category : 'as yet unclassified' }
-TSTree >> onTreeHandle: tHandle src: src cumulatedSizes: cumulatedSizes nodeClass: class [
+TSTree >> onTreeHandle: tHandle src: src nodeClass: class [
 
 	<primitive: 'primitive_ts_ast' module: 'TreeSitterPlugin'>
 	^ nil

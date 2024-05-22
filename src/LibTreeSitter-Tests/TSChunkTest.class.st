@@ -46,7 +46,7 @@ TSChunkTest >> testASTofCSimpleChunk [
 TSChunkTest >> testASTofPythonSimpleChunk [
 
 	| tree node src |
-	src := self pythonFibChunk. "'a + b # hello'"
+	src := self pythonFibChunk trimLeft withUnixLineEndings.
 
 	tree := TSLanguage python parser treeOfString: src.
 	node := tree ast.

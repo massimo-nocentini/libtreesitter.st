@@ -74,6 +74,6 @@ TSParser >> treeOfString: src [
 
 	^ self
 		  onParserHandle: self getHandle
-		  parseString: src
+		  parseString: src withUnixLineEndings
 		  treeClass: TSTree
 ]

@@ -17,6 +17,7 @@ Class {
 		'isMissing',
 		'isExtra',
 		'hasError',
+		'nodeString',
 		'children'
 	],
 	#category : 'LibTreeSitter',
@@ -81,6 +82,12 @@ TSNode >> isNamed [
 TSNode >> isNull [
 
 	^ isNull
+]
+
+{ #category : 'accessing' }
+TSNode >> nodeString [
+
+	^ nodeString
 ]
 
 { #category : 'accessing' }
