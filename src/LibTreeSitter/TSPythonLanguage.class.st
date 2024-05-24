@@ -1,9 +1,13 @@
+"
+# Python grammar for Tree Sitter
+
+I am a variant to allow TreeSitter to work with the Python language.
+
+The original repo lies on [Github](https://github.com/tree-sitter/tree-sitter-python).
+"
 Class {
 	#name : 'TSPythonLanguage',
 	#superclass : 'TSLanguage',
-	#instVars : [
-		'braces'
-	],
 	#category : 'LibTreeSitter-Languages',
 	#package : 'LibTreeSitter',
 	#tag : 'Languages'
@@ -15,39 +19,36 @@ TSPythonLanguage class >> languageName [
 	^ 'python'
 ]
 
-{ #category : 'initialization' }
-TSPythonLanguage >> initialize [
+{ #category : 'query' }
+TSPythonLanguage >> newHighlightsStylesDictionary [
 
-	super initialize.
-
-	braces := 0.
-
-	highlights
-		at: 'string.special.key' put: {
-				('foreground #'
-				 , (SHStyleElement withTokens: #( comment )) color asHexString).
-				'style italic'.
-				('family ' , LogicalFont pangoSans familyName) };
-		at: 'opening.brace' put: { 'weight bold' };
-		at: 'closing.brace' put: { 'weight bold' };
-		at: 'opening.squaredb' put: { 'weight bold'. 'style italic' };
-		at: 'closing.squaredb' put: { 'weight bold'. 'style italic' };
-		at: 'variable' put: {
-				('foreground #'
-				 , (SHStyleElement withTokens: #( number )) color asHexString).
-				('family ' , LogicalFont pangoMath familyName) };
-		at: 'comment' put: { ('foreground #'
-			 , (SHStyleElement withTokens: #( string )) color asHexString) };
-		at: 'comment' put: {
-				('foreground #'
-				 , (SHStyleElement withTokens: #( comment )) color asHexString).
-				'style italic' };
-		at: 'number' put: {
-				('foreground #'
-				 , (SHStyleElement withTokens: #( number )) color asHexString).
-				('family ' , LogicalFont pangoMath familyName) };
-		at: 'keyword' put: { ('foreground #'
-			 , (SHStyleElement withTokens: { 'true' }) color asHexString) }
+	^ super newHighlightsStylesDictionary
+		  at: 'string.special.key' put: {
+				  ('foreground #'
+				   , (SHStyleElement withTokens: #( comment )) color asHexString).
+				  'style italic'.
+				  ('family ' , LogicalFont pangoSans familyName) };
+		  at: 'opening.brace' put: { 'weight bold' };
+		  at: 'closing.brace' put: { 'weight bold' };
+		  at: 'opening.squaredb' put: { 'weight bold'. 'style italic' };
+		  at: 'closing.squaredb' put: { 'weight bold'. 'style italic' };
+		  at: 'variable' put: {
+				  ('foreground #'
+				   , (SHStyleElement withTokens: #( number )) color asHexString).
+				  ('family ' , LogicalFont pangoMath familyName) };
+		  at: 'comment' put: { ('foreground #'
+			   , (SHStyleElement withTokens: #( string )) color asHexString) };
+		  at: 'comment' put: {
+				  ('foreground #'
+				   , (SHStyleElement withTokens: #( comment )) color asHexString).
+				  'style italic' };
+		  at: 'number' put: {
+				  ('foreground #'
+				   , (SHStyleElement withTokens: #( number )) color asHexString).
+				  ('family ' , LogicalFont pangoMath familyName) };
+		  at: 'keyword' put: { ('foreground #'
+			   , (SHStyleElement withTokens: { 'true' }) color asHexString) };
+		  yourself
 ]
 
 { #category : 'instance creation' }

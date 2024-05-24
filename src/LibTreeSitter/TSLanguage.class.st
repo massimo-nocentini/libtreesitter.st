@@ -1,7 +1,8 @@
 Class {
 	#name : 'TSLanguage',
 	#superclass : 'Object',
-	#classTraits : 'TExternalAddressHolder classTrait',
+	#traits : 'TGMarkupStyleProvider',
+	#classTraits : 'TGMarkupStyleProvider classTrait',
 	#instVars : [
 		'handle',
 		'highlights',
@@ -136,7 +137,8 @@ TSLanguage >> initialize [
 	super initialize.
 
 	handle := self newLanguageHandle.
-	highlights := Dictionary new
+
+	highlights := self newHighlightsStylesDictionary
 ]
 
 { #category : 'query' }
@@ -164,6 +166,12 @@ TSLanguage >> name [
 	^ self class languageName
 ]
 
+{ #category : 'query' }
+TSLanguage >> newHighlightsStylesDictionary [
+
+	^ Dictionary new
+]
+
 { #category : 'instance creation' }
 TSLanguage >> newLanguageHandle [
 
@@ -173,7 +181,7 @@ TSLanguage >> newLanguageHandle [
 { #category : 'accessing' }
 TSLanguage >> orderedPatterns [
 
-	^ #(  )
+	^ highlights keys
 ]
 
 { #category : 'accessing' }

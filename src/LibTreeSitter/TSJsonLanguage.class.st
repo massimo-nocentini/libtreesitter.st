@@ -1,9 +1,6 @@
 Class {
 	#name : 'TSJsonLanguage',
 	#superclass : 'TSLanguage',
-	#instVars : [
-		'braces'
-	],
 	#category : 'LibTreeSitter-Languages',
 	#package : 'LibTreeSitter',
 	#tag : 'Languages'
@@ -31,31 +28,21 @@ TSJsonLanguage >> highlightsQueryString [
 '
 ]
 
-{ #category : 'initialization' }
-TSJsonLanguage >> initialize [
+{ #category : 'query' }
+TSJsonLanguage >> newHighlightsStylesDictionary [
 
-	super initialize.
-
-	braces := 0.
-
-	highlights
-		at: 'string.special.key' put: {
-				('foreground #'
-				 , (SHStyleElement withTokens: #( comment )) color asHexString).
-				'style italic'.
-				('family ' , LogicalFont pangoSans familyName) };
-		at: 'opening.brace' put: { 'weight bold' };
-		at: 'closing.brace' put: { 'weight bold' };
-		at: 'opening.squaredb' put: { 'weight bold'. 'style italic' };
-		at: 'closing.squaredb' put: { 'weight bold'. 'style italic' };
-		at: 'number' put: {
-				('foreground #'
-				 , (SHStyleElement withTokens: #( number )) color asHexString).
-				('family ' , LogicalFont pangoMath familyName) };
-		at: 'string' put: { ('foreground #'
-			 , (SHStyleElement withTokens: #( string )) color asHexString) };
-		at: 'constant.builtin' put: { ('foreground #'
-			 , (SHStyleElement withTokens: { 'true' }) color asHexString) }
+	^ super newHighlightsStylesDictionary
+		  at: 'string.special.key' put: self gmarkupInstanceVarStyle;
+		  at: 'opening.brace' put: self gmarkupBoldStyle;
+		  at: 'closing.brace' put: self gmarkupBoldStyle;
+		  at: 'opening.squaredb'
+		  put: self gmarkupBoldStyle , self gmarkupItalicStyle;
+		  at: 'closing.squaredb'
+		  put: self gmarkupBoldStyle , self gmarkupItalicStyle;
+		  at: 'number' put: self gmarkupNumberStyle;
+		  at: 'string' put: self gmarkupStringStyle;
+		  at: 'constant.builtin' put: self gmarkupBuiltinStyle;
+		  yourself
 ]
 
 { #category : 'instance creation' }
