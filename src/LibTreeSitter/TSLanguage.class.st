@@ -200,7 +200,7 @@ TSLanguage >> query: qString [
 		  queryClass: TSQuery
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 TSLanguage >> shareDirectoryAsFileReference [
 
 	| sharePath |
