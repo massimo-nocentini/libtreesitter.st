@@ -122,9 +122,8 @@ TSLanguage >> highlightsQuery [
 TSLanguage >> highlightsQueryString [
 
 	| sharePath |
-	sharePath := Smalltalk vm directory asFileReference parent / 'share'
-	             / 'tree-sitter' / 'language' / self name / 'queries'
-	             / 'highlights.scm'.
+	sharePath := self shareDirectoryAsFileReference / 'language'
+	             / self name / 'queries' / 'highlights.scm'.
 
 	^ sharePath exists
 		  ifTrue: [ sharePath contents ]
@@ -145,8 +144,8 @@ TSLanguage >> initialize [
 TSLanguage >> jsGrammarString [
 
 	| sharePath |
-	sharePath := Smalltalk vm directory asFileReference parent / 'share'
-	             / 'tree-sitter' / 'language' / self name / 'grammar.js'.
+	sharePath := self shareDirectoryAsFileReference / 'language'
+	             / self name / 'grammar.js'.
 
 	^ sharePath exists
 		  ifTrue: [ sharePath contents ]
@@ -199,4 +198,15 @@ TSLanguage >> query: qString [
 		  languageHandle: self getHandle
 		  queryString: qString withUnixLineEndings
 		  queryClass: TSQuery
+]
+
+{ #category : 'as yet unclassified' }
+TSLanguage >> shareDirectoryAsFileReference [
+
+	| sharePath |
+	sharePath := Smalltalk vm directory asFileReference.
+
+	Smalltalk os isWindows ifFalse: [ sharePath := sharePath parent ].
+
+	^ sharePath / 'share' / 'tree-sitter'
 ]
