@@ -18,7 +18,8 @@ TSChunk >> asRSPangoShapeUsingFont: aFont [
 
 	code := sourceCode replaceAllTabsWithThreeSpaces.
 
-	^ langName = MicAbstractCodeBlock defaultLanguage
+	^ (langName = MicAbstractCodeBlock defaultLanguage or: [
+		   langName = #st ])
 		  ifTrue: [
 			  | presenter |
 			  presenter := SpCodePresenter new
