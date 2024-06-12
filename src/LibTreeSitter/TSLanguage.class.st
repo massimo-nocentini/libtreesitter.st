@@ -194,10 +194,12 @@ TSLanguage >> parser [
 { #category : 'query' }
 TSLanguage >> query: qString [
 
-	^ self
-		  languageHandle: self getHandle
-		  queryString: qString withUnixLineEndings
-		  queryClass: TSQuery
+	^ (self
+		   languageHandle: self getHandle
+		   queryString: qString withUnixLineEndings
+		   queryClass: TSQuery)
+		  addToTheResourceManager;
+		  yourself
 ]
 
 { #category : 'accessing' }

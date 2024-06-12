@@ -37,7 +37,9 @@ TSParser >> initialize [
 	super initialize.
 
 	assigned := false.
-	handle := self allocate
+	handle := self allocate.
+
+	self addToTheResourceManager
 ]
 
 { #category : 'accessing' }
@@ -67,8 +69,10 @@ TSParser >> onParserHandle: pHandle setLanguageHandle: lHandle [
 { #category : 'as yet unclassified' }
 TSParser >> treeOfString: src [
 
-	^ self
-		  onParserHandle: self getHandle
-		  parseString: src withUnixLineEndings
-		  treeClass: TSTree
+	^ (self
+		   onParserHandle: self getHandle
+		   parseString: src withUnixLineEndings
+		   treeClass: TSTree)
+		  addToTheResourceManager;
+		  yourself
 ]
