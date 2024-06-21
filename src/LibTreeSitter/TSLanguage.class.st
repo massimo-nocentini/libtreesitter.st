@@ -83,6 +83,19 @@ TSLanguage class >> python [
 
 { #category : 'visiting' }
 TSLanguage >> acceptSlotDescriptorsVisitor: aVisitor [
+	"The following message should be implemented as follows:
+
+```
+visitTSLanguage: lang
+
+	^ {
+		  (self newSlotDescriptorSelector: #name).
+		  (self newSlotDescriptorSelector: #orderedPatterns).
+		  ((self newSlotDescriptorSelector: #asGrammarJsShape)
+			   inline;
+			   quote) }
+```
+"
 
 	^ aVisitor visitTSLanguage: self
 ]
