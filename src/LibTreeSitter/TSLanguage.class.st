@@ -221,7 +221,7 @@ TSLanguage >> shareDirectoryAsFileReference [
 	| sharePath |
 	sharePath := Smalltalk vm directory asFileReference.
 
-	Smalltalk os isWindows ifFalse: [ sharePath := sharePath parent ].
+	Smalltalk os isLinux ifTrue: [ sharePath := sharePath parent ].
 
 	^ sharePath / 'share' / 'tree-sitter'
 ]
