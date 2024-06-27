@@ -106,7 +106,7 @@ TSLanguage >> asGrammarJsShape [
 	^ TSChunk new
 		  language: 'javascript';
 		  sourceCode: self jsGrammarString;
-		  asRSPangoShapeUsingFont: LogicalFont pangoMonospace
+		  asRSPangoShapeUsingFont: PangoLogicalFontManager pangoMonospace
 ]
 
 { #category : 'accessing' }

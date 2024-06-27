@@ -27,7 +27,7 @@ TSPythonLanguage >> newHighlightsStylesDictionary [
 				  ('foreground #'
 				   , (SHStyleElement withTokens: #( comment )) color asHexString).
 				  'style italic'.
-				  ('family ' , LogicalFont pangoSans familyName) };
+				  ('family ' , PangoLogicalFontManager pangoSans familyName) };
 		  at: 'opening.brace' put: { 'weight bold' };
 		  at: 'closing.brace' put: { 'weight bold' };
 		  at: 'opening.squaredb' put: { 'weight bold'. 'style italic' };
@@ -35,7 +35,7 @@ TSPythonLanguage >> newHighlightsStylesDictionary [
 		  at: 'variable' put: {
 				  ('foreground #'
 				   , (SHStyleElement withTokens: #( number )) color asHexString).
-				  ('family ' , LogicalFont pangoMath familyName) };
+				  ('family ' , PangoLogicalFontManager pangoMath familyName) };
 		  at: 'comment' put: { ('foreground #'
 			   , (SHStyleElement withTokens: #( string )) color asHexString) };
 		  at: 'comment' put: {
@@ -45,7 +45,7 @@ TSPythonLanguage >> newHighlightsStylesDictionary [
 		  at: 'number' put: {
 				  ('foreground #'
 				   , (SHStyleElement withTokens: #( number )) color asHexString).
-				  ('family ' , LogicalFont pangoMath familyName) };
+				  ('family ' , PangoLogicalFontManager pangoMath familyName) };
 		  at: 'keyword' put: { ('foreground #'
 			   , (SHStyleElement withTokens: { 'true' }) color asHexString) };
 		  yourself

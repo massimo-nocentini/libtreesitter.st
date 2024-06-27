@@ -28,7 +28,7 @@ TSChunk >> asRSPangoShapeUsingFont: aFont [
 				               yourself.
 
 			  presenter textWithStyle asRSPangoShapeUsingFont:
-				  LogicalFont pangoMonospace ]
+				  PangoLogicalFontManager pangoMonospace ]
 		  ifFalse: [
 			  | chunks |
 			  chunks := TSLanguage

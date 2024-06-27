@@ -46,7 +46,7 @@ TSCLanguage >> newHighlightsStylesDictionary [
 		  at: 'number' put: {
 				  ('foreground #'
 				   , (SHStyleElement withTokens: #( number )) color asHexString).
-				  ('family ' , LogicalFont pangoMath familyName) };
+				  ('family ' , PangoLogicalFontManager pangoMath familyName) };
 		  at: 'type' put: {
 				  ('foreground #'
 				   , (SHStyleElement withTokens: #( pragma )) color asHexString).

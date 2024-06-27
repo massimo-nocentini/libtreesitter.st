@@ -32,7 +32,7 @@ TGMarkupStyleProvider >> gmarkupInstanceVarStyle [
 
 	^ {
 		  ('foreground #' , SHPreferences instanceVarStyle color asHexString).
-		  ('family ' , LogicalFont pangoSans familyName) }
+		  ('family ' , PangoLogicalFontManager pangoSans familyName) }
 ]
 
 { #category : 'accessing' }
@@ -47,7 +47,7 @@ TGMarkupStyleProvider >> gmarkupNumberStyle [
 	^ {
 		  ('foreground #'
 		   , (SHStyleElement withTokens: #( number )) color asHexString).
-		  ('family ' , LogicalFont pangoMath familyName) }
+		  ('family ' , PangoLogicalFontManager pangoMath familyName) }
 ]
 
 { #category : 'accessing' }
