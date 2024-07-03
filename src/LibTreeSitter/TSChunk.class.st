@@ -13,37 +13,40 @@ Class {
 { #category : 'evaluating' }
 TSChunk >> asRSPangoShapeUsingFont: aFont [
 
-	| code langName |
+	| code langName shape |
 	langName := language asSymbol.
 
 	code := sourceCode replaceAllTabsWithThreeSpaces.
 
-	^ (langName = MicAbstractCodeBlock defaultLanguage or: [
-		   langName = #st ])
-		  ifTrue: [
-			  | presenter |
-			  presenter := SpCodePresenter new
-				               beForScripting;
-				               text: code;
-				               yourself.
+	shape := (langName = MicAbstractCodeBlock defaultLanguage or: [
+		          langName = #st ])
+		         ifTrue: [
+			         | presenter |
+			         presenter := SpCodePresenter new
+				                      beForScripting;
+				                      text: code;
+				                      yourself.
 
-			  presenter textWithStyle asRSPangoShapeUsingFont:
-				  PangoLogicalFontManager pangoMonospace ]
-		  ifFalse: [
-			  | chunks |
-			  chunks := TSLanguage
-				            languageNamed: langName
-				            ifPresent: [ :tsLanguage |
-					            self
-						            collectChunksOnSourceCode: code
-						            treeSitterLanguage: tsLanguage ]
-				            ifAbsent: [ OrderedCollection new ].
+			         presenter textWithStyle asRSPangoShapeUsingFont: aFont ]
+		         ifFalse: [
+			         | chunks |
+			         chunks := TSLanguage
+				                   languageNamed: langName
+				                   ifPresent: [ :tsLanguage |
+					                   self
+						                   collectChunksOnSourceCode: code
+						                   treeSitterLanguage: tsLanguage ]
+				                   ifAbsent: [ OrderedCollection new ].
 
-			  RSPangoText new
-				  font: aFont;
-				  text: code;
-				  attributesChunks: chunks;
-				  asCompositeShape ]
+			         RSPangoText new
+				         font: aFont;
+				         text: code;
+				         attributesChunks: chunks;
+				         yourself ].
+
+	^ shape
+		  model: self;
+		  yourself
 ]
 
 { #category : 'evaluating' }
