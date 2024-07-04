@@ -122,7 +122,7 @@ void update (void *ud) {  }
 '.
 	captures := query matchesGroupByCategoryOnTree: tree.
 
-	self halt
+	self assert: (captures at: #'function.decl') size equals: 2
 ]
 
 { #category : 'tests' }
