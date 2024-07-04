@@ -117,9 +117,13 @@ void update (void *ud) {  }
 '.
 
 	query := lang query: '
-(function_declarator
-  declarator: (identifier) @function.decl)
-'.
+(function_definition declarator: 
+	(function_declarator declarator: 
+		(identifier) @decl (#eq? @decl "update")
+	)
+) @function.decl
+' withUnixLineEndings.
+
 	captures := query matchesGroupByCategoryOnTree: tree.
 
 	self assert: (captures at: #'function.decl') size equals: 2
