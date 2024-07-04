@@ -6,12 +6,19 @@ Class {
 		'startPoint',
 		'endPoint',
 		'absolutePoint',
-		'discoverIndex'
+		'discoverIndex',
+		'content'
 	],
 	#category : 'LibTreeSitter-Core',
 	#package : 'LibTreeSitter',
 	#tag : 'Core'
 }
+
+{ #category : 'accessing' }
+TSQueryCapture >> content [
+
+	^ content
+]
 
 { #category : 'accessing' }
 TSQueryCapture >> discoverIndex [

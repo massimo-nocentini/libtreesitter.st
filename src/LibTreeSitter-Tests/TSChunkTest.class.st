@@ -106,6 +106,26 @@ TSChunkTest >> testHighlightsQueryMatches [
 ]
 
 { #category : 'tests' }
+TSChunkTest >> testHighlightsQueryMatchesFunctionName [
+
+	| captures lang tree query |
+	lang := TSLanguage c.
+
+	tree := lang parser treeOfString: '
+int main (int argc, char **argv) { printf("Hello world!"); }
+void update (void *ud) {  }
+'.
+
+	query := lang query: '
+(function_declarator
+  declarator: (identifier) @function.decl)
+'.
+	captures := query matchesGroupByCategoryOnTree: tree.
+
+	self halt
+]
+
+{ #category : 'tests' }
 TSChunkTest >> testHighlightsQueryMatchesGrammarJavascript [
 
 	| captures lang tree |

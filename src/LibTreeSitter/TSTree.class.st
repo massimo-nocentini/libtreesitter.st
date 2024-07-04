@@ -30,3 +30,9 @@ TSTree >> onTreeHandle: tHandle src: src nodeClass: class [
 	<primitive: 'primitive_ts_ast' module: 'TreeSitterPlugin'>
 	^ nil
 ]
+
+{ #category : 'accessing' }
+TSTree >> sourceCode [
+
+	^ sourceCode
+]

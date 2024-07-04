@@ -54,11 +54,12 @@ TSQuery >> matchesOnTree: tree [
 	^ self
 		  matchesQueryHandle: self getHandle
 		  treeHandle: tree getHandle
+		  sourceCode: tree sourceCode
 		  queryCaptureClass: TSQueryCapture
 ]
 
 { #category : 'primitives' }
-TSQuery >> matchesQueryHandle: qHandle treeHandle: tHandle queryCaptureClass: class [
+TSQuery >> matchesQueryHandle: qHandle treeHandle: tHandle sourceCode: src queryCaptureClass: class [
 
 	<primitive: 'primitive_ts_query_matches' module: 'TreeSitterPlugin'>
 	^ #(  )
