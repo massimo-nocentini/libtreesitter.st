@@ -138,21 +138,20 @@ TSChunkTest >> testHighlightsQueryMatchesFunctionName [
 	tree := lang parser treeOfString: '
 int main (int argc, char **argv) { printf("Hello world!"); }
 void update (void *ud) {  }
+int a;
 '.
 
-	query := lang query: '
-((function_definition declarator: 
-	(function_declarator declarator: 
-		(identifier) @decl
-	)
-) @function.decl
-(#eq? @decl "update")
+	query := lang query: '(
+(function_definition
+	declarator: (function_declarator
+						declarator: (identifier) @function_name )) @function_decl
+(#eq? @function_name "update")
 )
 '.
 
 	captures := query matchesGroupByCategoryOnTree: tree.
 
-	self assert: (captures at: #'function.decl') size equals: 2
+	self assert: (captures at: #function_decl) size equals: 2
 ]
 
 { #category : 'tests' }
@@ -193,6 +192,25 @@ canvas.add(rect);
 	captures := lang highlightsQuery matchesOnTree: tree.
 
 	self assert: captures isNotEmpty
+]
+
+{ #category : 'tests' }
+TSChunkTest >> testHighlightsQueryMatchesSimpleIdentifier [
+
+	| captures lang tree query |
+	lang := TSLanguage c.
+
+	tree := lang parser treeOfString: '
+int a;
+
+int b;
+'.
+
+	query := lang query: '((identifier) @v (#eq? @v "a"))'.
+
+	captures := query matchesGroupByCategoryOnTree: tree.
+
+	self assert: (captures at: #v) size equals: 2
 ]
 
 { #category : 'tests' }
