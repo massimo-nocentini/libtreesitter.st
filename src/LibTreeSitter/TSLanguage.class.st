@@ -212,6 +212,7 @@ TSLanguage >> query: qString [
 		   queryString: qString withUnixLineEndings
 		   queryClass: TSQuery)
 		  addToTheResourceManager;
+		  check;
 		  yourself
 ]
 

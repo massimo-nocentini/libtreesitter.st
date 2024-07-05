@@ -82,6 +82,30 @@ TSChunkTest >> testCreateQuery [
 ]
 
 { #category : 'tests' }
+TSChunkTest >> testErrorInQuery [
+
+	| lang tree |
+	lang := TSLanguage c.
+
+	tree := lang parser treeOfString: '
+int main (int argc, char **argv) { printf("Hello world!"); }
+void update (void *ud) {  }
+'.
+
+	self
+		should: [
+			lang query: '
+((function_definition declarator: 
+	function_declarator declarator: 
+		(identifier) @decl
+	)
+) @function.decl
+(#eq? @decl "update")
+)' ]
+		raise: Error
+]
+
+{ #category : 'tests' }
 TSChunkTest >> testHighlightsQueryForC [
 
 	self
@@ -117,12 +141,14 @@ void update (void *ud) {  }
 '.
 
 	query := lang query: '
-(function_definition declarator: 
+((function_definition declarator: 
 	(function_declarator declarator: 
-		(identifier) @decl (#eq? @decl "update")
+		(identifier) @decl
 	)
 ) @function.decl
-' withUnixLineEndings.
+(#eq? @decl "update")
+)
+'.
 
 	captures := query matchesGroupByCategoryOnTree: tree.
 

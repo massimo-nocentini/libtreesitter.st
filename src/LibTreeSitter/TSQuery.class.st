@@ -21,6 +21,13 @@ TSQuery class >> deallocateHandle: anExternalAddress [
 	
 ]
 
+{ #category : 'checking' }
+TSQuery >> check [
+
+	self errorType = 0 ifFalse: [
+		Error signal: 'Query creation failed.' withTag: self errorOffset ]
+]
+
 { #category : 'accessing' }
 TSQuery >> errorOffset [
 
