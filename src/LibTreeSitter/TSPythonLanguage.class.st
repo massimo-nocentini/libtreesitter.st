@@ -23,31 +23,18 @@ TSPythonLanguage class >> languageName [
 TSPythonLanguage >> newHighlightsStylesDictionary [
 
 	^ super newHighlightsStylesDictionary
-		  at: 'string.special.key' put: {
-				  ('foreground #'
-				   , (SHStyleElement withTokens: #( comment )) color asHexString).
+		  
+		  at: 'keyword' put: self gmarkupSyntaxStyle;
+		  at: 'comment' put: self gmarkupCommentStyle;
+		  at: 'operator' put: self gmarkupBoldStyle;
+		  at: 'number' put: self gmarkupNumberStyle;
+		  at: 'string' put: self gmarkupStringStyle;
+		  "at: 'constant' put: self gmarkupBuiltinStyle;
+		  "at: 'function' put: {
 				  'style italic'.
-				  ('family ' , PangoLogicalFontManager pangoSans familyName) };
-		  at: 'opening.brace' put: { 'weight bold' };
-		  at: 'closing.brace' put: { 'weight bold' };
-		  at: 'opening.squaredb' put: { 'weight bold'. 'style italic' };
-		  at: 'closing.squaredb' put: { 'weight bold'. 'style italic' };
-		  at: 'variable' put: {
+				  'weight bold'.
 				  ('foreground #'
-				   , (SHStyleElement withTokens: #( number )) color asHexString).
-				  ('family ' , PangoLogicalFontManager pangoMath familyName) };
-		  at: 'comment' put: { ('foreground #'
-			   , (SHStyleElement withTokens: #( string )) color asHexString) };
-		  at: 'comment' put: {
-				  ('foreground #'
-				   , (SHStyleElement withTokens: #( comment )) color asHexString).
-				  'style italic' };
-		  at: 'number' put: {
-				  ('foreground #'
-				   , (SHStyleElement withTokens: #( number )) color asHexString).
-				  ('family ' , PangoLogicalFontManager pangoMath familyName) };
-		  at: 'keyword' put: { ('foreground #'
-			   , (SHStyleElement withTokens: { 'true' }) color asHexString) };
+				   , (SHStyleElement withTokens: #( selector )) color asHexString) };
 		  yourself
 ]
 
@@ -56,10 +43,4 @@ TSPythonLanguage >> newLanguageHandle [
 
 	<primitive: 'primitive_tree_sitter_python' module: 'TreeSitterPlugin'>
 	self primitiveFail
-]
-
-{ #category : 'as yet unclassified' }
-TSPythonLanguage >> orderedPatterns [
-
-	^ { 'variable'. 'keyword'. 'number'. 'comment' }
 ]

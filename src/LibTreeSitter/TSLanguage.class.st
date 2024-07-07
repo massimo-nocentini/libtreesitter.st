@@ -97,7 +97,7 @@ visitTSLanguage: lang
 ```
 "
 
-	^ aVisitor visitTSLanguage: self
+	^ aVisitor visitObject: self
 ]
 
 { #category : 'converting' }
