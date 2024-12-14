@@ -32,13 +32,10 @@ TSNode >> absolutePoint [
 
 { #category : 'converting' }
 TSNode >> asPresenter [
-	"<inspectorPresentationOrder: 930 title: 'MicTree'>"
 
 	^ SpTreePresenter new
 		  roots: { self };
 		  children: [ :t | t children ];
-		  display: [ :each |
-			  String streamContents: [ :stream | each displayStringOn: stream ] ];
 		  expandAll;
 		  yourself
 ]

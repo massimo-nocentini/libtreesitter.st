@@ -48,7 +48,7 @@ TSChunkTest >> testASTofPythonSimpleChunk [
 	src := self pythonFibChunk trimLeft withUnixLineEndings.
 
 	node := (TSLanguage python parser treeOfString: src) ast.
-
+node asPresenter open.
 	self
 		assert: node isNotNil;
 		assert: node content equals: src;
